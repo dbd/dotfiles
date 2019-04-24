@@ -1,4 +1,5 @@
-
+# Check to make sure that dotfiles are updated
+git -C ~/.dotfiles status | grep -v "nothing to commit" >/dev/null && echo 'Commited the changed dotfiles!'
 #Set identies to use for ssh-agent plugin
 # Needed on mac because it doesn't autoload the ssh key
 zstyle :omz:plugins:ssh-agent identities id_rsa
