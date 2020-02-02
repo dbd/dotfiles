@@ -5,31 +5,23 @@ filetype off
 call plug#begin('~/.vim/plugged')
 " Nice toolbar on the bottom
 Plug 'vim-airline/vim-airline'
+let g:airline_powerline_fonts = 1
 " Color theme
 Plug 'rakr/vim-one'
 " Show tags in file for quick navigation
 Plug 'majutsushi/tagbar'
+Plug 'lvht/tagbar-markdown'
 " File browser instead of netrw
 Plug 'scrooloose/nerdtree'
-" Use deoplete for file completion
-if has('nvim')
-    Plug 'Shougo/denite.nvim'
-else
-    Plug 'Shougo/denite.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-endif
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-Plug 'Townk/vim-autoclose'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
-
-nmap ; :Denite -split=floating -winrow=1 buffer<CR>
-nmap <leader>t :Denite file/rec -split=floating -winrow=1<CR>
-nnoremap <leader>g :<C-u>Denite grep:. -no-empty -mode=normal<CR>
-nnoremap <leader>j :<C-u>DeniteCursorWord grep:. -mode=normal<CR>
-
-let g:deoplete#enable_at_startup = 1
+Plug 'valloric/youcompleteme'
+Plug 'Raimondi/delimitMate'
+Plug 'Shougo/unite.vim'
+Plug 'lepture/vim-jinja'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'nvie/vim-flake8'
+Plug 'w0rp/ale'
+nmap ; :gnite buffer -start-insert -ignorecase<CR>
 call plug#end()
 
 syntax enable
@@ -40,6 +32,10 @@ colorscheme one
 set encoding=utf-8 nobomb
 set cursorline
 set number
+
+nnoremap <space> za
+set foldmethod=indent
+set foldlevel=1000
 
 "python
 set tabstop=4
@@ -64,6 +60,8 @@ let g:go_highlight_types = 1
 autocmd VimEnter * NERDTree
 let NERDTreeMinimalUI = 1
 
+let g:ale_linters = {'python': ['flake8']}
+
 
 "remap pane movement
 map <C-J> <C-W>j
@@ -77,4 +75,11 @@ nmap T :TagbarToggle<CR>
 " deoplete tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
+nmap <C-N> :noh<CR>
+
+nmap <C-G> :Rg<CR>
+nnoremap <silent> <Leader>rg :Rg <C-R><C-W><CR>
+
+nmap F :FZF<CR>
+command! -bang -nargs=* Find cal fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!./git/*" --color "always"'.shellescape(<q-args>), 1, <bang>0)
 
