@@ -88,6 +88,9 @@ nmap T :TagbarToggle<CR>
 " YCM - code completion
 " Tab completion
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+let g:ycm_autoclose_preview_window_after_insertion = 1
+nmap <C-D> :YcmCompleter GetDoc<CR>
+nmap <C-Q> :pc<CR>
 
 " Ripgrep - code search
 nmap <C-G> :Rg<CR>
