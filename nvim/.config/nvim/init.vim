@@ -24,6 +24,9 @@ Plug 'w0rp/ale'
 nmap ; :gnite buffer -start-insert -ignorecase<CR>
 call plug#end()
 
+"
+" ==== Vim config ====
+"
 syntax enable
 set background=dark
 set termguicolors     " enable true colors support
@@ -33,11 +36,25 @@ set encoding=utf-8 nobomb
 set cursorline
 set number
 
+" Folding
 nnoremap <space> za
 set foldmethod=indent
 set foldlevel=1000
 
-"python
+" Unhighlight things
+nmap <C-N> :noh<CR>
+
+"remap pane movement
+map <C-J> <C-W>j
+map <C-K> <C-W>k
+map <C-L> <C-W>l
+map <C-H> <C-W>h
+
+
+"
+" ==== Languages ====
+"
+" Python
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -55,31 +72,28 @@ let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
 
-
-"setup vim explorer
+"
+" ==== Plugin Configs ====
+"
+" Nerdtree - file explorer
 autocmd VimEnter * NERDTree
 let NERDTreeMinimalUI = 1
 
+" Ale - linting
 let g:ale_linters = {'python': ['flake8']}
 
-
-"remap pane movement
-map <C-J> <C-W>j
-map <C-K> <C-W>k
-map <C-L> <C-W>l
-map <C-H> <C-W>h
-
-" Shortcut for tagbar
+" Tagbar
 nmap T :TagbarToggle<CR>
 
-" deoplete tab-complete
+" YCM - code completion
+" Tab completion
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-nmap <C-N> :noh<CR>
-
+" Ripgrep - code search
 nmap <C-G> :Rg<CR>
 nnoremap <silent> <Leader>rg :Rg <C-R><C-W><CR>
 
+" FZF - file search
 nmap F :FZF<CR>
+" Options for fzf searching return syntax
 command! -bang -nargs=* Find cal fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!./git/*" --color "always"'.shellescape(<q-args>), 1, <bang>0)
-
