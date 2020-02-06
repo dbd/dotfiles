@@ -21,7 +21,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'nvie/vim-flake8'
 Plug 'w0rp/ale'
-nmap ; :gnite buffer -start-insert -ignorecase<CR>
+nmap ; :Unite buffer -start-insert -ignorecase<CR>
 call plug#end()
 
 "
