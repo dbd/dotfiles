@@ -33,7 +33,6 @@ window:
   #     - buttonless: Title bar, transparent background, but no title bar buttons
   decorations: buttonless
 
-  start_maximized: false
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
@@ -42,7 +41,6 @@ scrolling:
 
   multiplier: 3
 
-  faux_multiplier: 3
   auto_scroll: false
 
 tabspaces: 8
@@ -61,7 +59,7 @@ font:
     family: Fira Mono for Powerline
     style: Italic
 
-  size: 15.0
+  size: 13.0
   offset:
     x: 0
     y: 0
@@ -72,9 +70,6 @@ font:
 
   use_thin_strokes: true
 
-render_timer: false
-
-persistent_logging: false
 
 draw_bold_text_with_bright_colors: true
 
