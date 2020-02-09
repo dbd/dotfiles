@@ -1,3 +1,5 @@
+set ttyfast
+
 set rtp+=/usr/local/opt/fzf
 
 set nocompatible
@@ -28,6 +30,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'nvie/vim-flake8'
 Plug 'w0rp/ale'
+Plug 'fatih/vim-go'
 nmap ; :Unite buffer -start-insert -ignorecase<CR>
 call plug#end()
 

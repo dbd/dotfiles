@@ -45,6 +45,7 @@ alias vim="nvim"
 #Alias
 alias vbm="VBoxManage"
 alias g="git"
+alias h="hub"
 alias please="sudo !!"
 
 #Functions
