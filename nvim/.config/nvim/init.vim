@@ -31,6 +31,13 @@ Plug 'junegunn/fzf.vim'
 Plug 'nvie/vim-flake8'
 Plug 'w0rp/ale'
 Plug 'fatih/vim-go'
+
+" Track the engine.
+Plug 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+
 nmap ; :Unite buffer -start-insert -ignorecase<CR>
 call plug#end()
 
@@ -110,3 +117,12 @@ nnoremap <silent> <Leader>rg :Rg <C-R><C-W><CR>
 nmap F :FZF<CR>
 " Options for fzf searching return syntax
 command! -bang -nargs=* Find cal fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!./git/*" --color "always"'.shellescape(<q-args>), 1, <bang>0)
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<C-S>"
+let g:UltiSnipsJumpForwardTrigger="<C-N>"
+let g:UltiSnipsJumpBackwardTrigger="<C-P>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
