@@ -47,6 +47,7 @@ alias vbm="VBoxManage"
 alias g="git"
 alias h="hub"
 alias please="sudo !!"
+alias c3="source $HOME/miniconda3/bin/activate"
 
 #Functions
 function mkcd {
