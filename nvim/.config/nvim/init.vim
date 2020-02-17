@@ -38,6 +38,8 @@ Plug 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
 Plug 'honza/vim-snippets'
 
+Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+
 nmap ; :Unite buffer -start-insert -ignorecase<CR>
 call plug#end()
 
@@ -67,6 +69,8 @@ map <C-K> <C-W>k
 map <C-L> <C-W>l
 map <C-H> <C-W>h
 
+" show text replacement live
+set inccommand=nosplit
 
 "
 " ==== Languages ====
@@ -125,4 +129,11 @@ let g:UltiSnipsJumpBackwardTrigger="<C-P>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+" Vimwiki
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'index': 'readme',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+" don't let all markdown files be vimwiki
+let g:vimwiki_global_ext = 0
+let g:vimwiki_markdown_link_ext = 1
 
