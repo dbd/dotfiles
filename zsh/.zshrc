@@ -2,7 +2,7 @@
 git -C ~/git/dotfiles status | grep "committed" >/dev/null && echo 'Commited the changed dotfiles!'
 #Set identies to use for ssh-agent plugin
 # Needed on mac because it doesn't autoload the ssh key
-zstyle :omz:plugins:ssh-agent identities id_rsa
+zstyle :omz:plugins:ssh-agent identities id_ed25519
 
 #Spaceship prompt
 # I don't need all the prompts so only show the following
@@ -25,19 +25,17 @@ export SPACESHIP_PROMPT_ADD_NEWLINE=false
 
 ZSH_THEME="spaceship"
 
-# OMZ init
-export ZSH=$HOME/.oh-my-zsh
-source $HOME/.oh-my-zsh/oh-my-zsh.sh
-
 # Plugin and plugin config
 plugins=(ssh-agent sudo docker)
 cdpath=(. $HOME)
+
+# OMZ init
+export ZSH=$HOME/.oh-my-zsh
+source $HOME/.oh-my-zsh/oh-my-zsh.sh
 export FZF_DEFAULT_OPTS='--extended'
 source ~/.fzf.zsh
 
 #Export
-#export PATH=/Users/dbd/miniconda3/bin:$PATH:/Users/derekdaniels/Library/Android/sdk/tools:/Users/dbd/bin:/Users/dbd/go/bin
-export ANDROID_HOME=/Users/derekdaniels/Library/Android/sdk
 #mac vim sucks
 export EDITOR=nvim
 alias vim="nvim"
