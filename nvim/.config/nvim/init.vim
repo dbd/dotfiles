@@ -82,6 +82,8 @@ set expandtab
 
 " Javascript
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+" Yaml
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2
 
 " Go
 let g:go_highlight_build_constraints = 1
@@ -97,7 +99,7 @@ let g:go_highlight_types = 1
 " ==== Plugin Configs ====
 "
 " Nerdtree - file explorer
-autocmd VimEnter * NERDTree
+nnoremap <leader>n <ESC>:NERDTree<CR>
 let NERDTreeMinimalUI = 1
 
 " Ale - linting
@@ -132,7 +134,10 @@ let g:UltiSnipsEditSplit="vertical"
 
 " Vimwiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'index': 'readme',
-                      \ 'syntax': 'markdown', 'ext': '.md'}]
+                      \ 'syntax': 'markdown', 'ext': '.md',
+                      \'custom_wiki2html': '~/bin/wiki2html.sh',
+                      \ 'path_html': '/Documents/notes'}]
+  
 " don't let all markdown files be vimwiki
 let g:vimwiki_global_ext = 0
 let g:vimwiki_markdown_link_ext = 1
