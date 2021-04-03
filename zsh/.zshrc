@@ -49,6 +49,9 @@ alias h="hub"
 alias please="sudo !!"
 alias c3="source $HOME/miniconda3/bin/activate"
 
+export GOPATH="$HOME/go"
+export PATH="$PATH:$GOPATH/bin:$HOME/bin"
+
 #Functions
 function mkcd {
     mkdir $1 && cd $1
