@@ -33,12 +33,14 @@ cdpath=(. $HOME)
 export ZSH=$HOME/.oh-my-zsh
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
 export FZF_DEFAULT_OPTS='--extended'
+export GOPRIVATE=github.com
 source ~/.fzf.zsh
 
 #Export
 #mac vim sucks
 export EDITOR=nvim
 alias vim="nvim"
+export FZF_DEFAULT_COMMAND='rg --files --ignore-file .gitignore'
 
 #Alias
 alias vbm="VBoxManage"
@@ -65,6 +67,20 @@ function gcloud_init {
 # Only init nvm things when I need them, saves load time
 function nvm_init {
     export NVM_DIR="$HOME/.nvm"
-    [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-    [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
+
+function hsed {
+    sed -e 's#\[#\\[#g' -e 's#\]#\\]#g' -e 's#{#\{#g' -e 's#}#\}#g' -e 's#\.#\\.#g'  -e 's#\,#\\,#g' $1
+}
+
+function mongocon {
+    export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace llama mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode) 
+    kubectl run --namespace llama mongodb-client --rm --tty -i --restart='Never' --image bitnami/mongodb --command -- mongo admin --host mongodb --authenticationDatabase admin -u root -p $MONGODB_ROOT_PASSWORD
+    unset MONGODB_ROOT_PASSWORD
+}
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

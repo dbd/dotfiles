@@ -3,6 +3,7 @@
 	email = dbdaniel@mtu.edu
 [alias]
     s = status
+    t = !git --no-pager tag
     ap = add -p
     fa = fetch --all
     co = checkout

@@ -11,29 +11,30 @@ call plug#begin('~/.vim/plugged')
     let g:airline_powerline_fonts = 1
     " Color theme
     Plug 'rakr/vim-one'
-    " Show tags in file for quick navigation
-    Plug 'majutsushi/tagbar'
-    Plug 'lvht/tagbar-markdown'
     " File browser instead of netrw
     Plug 'scrooloose/nerdtree'
-    Plug 'Raimondi/delimitMate'
-    Plug 'Shougo/unite.vim'
-    Plug 'lepture/vim-jinja'
+    " Fuzzy find stuff
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
+    " Flake8 cause linting sucks
     Plug 'nvie/vim-flake8'
+    " Error and syntax highlighting
     Plug 'w0rp/ale'
-    Plug 'fatih/vim-go'
+    " Go plugins
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-    " Track the engine.
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+    Plug 'evanleck/vim-svelte'
+
+    Plug 'machakann/vim-sandwich'
+    Plug 'Raimondi/delimitMate'
+    Plug 'OmniSharp/omnisharp-vim'
     Plug 'SirVer/ultisnips'
-
-    " Snippets are separated from the engine. Add this if you want them:
     Plug 'honza/vim-snippets'
 
-    Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+    Plug 'airblade/vim-gitgutter'
 
-    nmap ; :Unite buffer -start-insert -ignorecase<CR>
 call plug#end()
 
 "
@@ -54,6 +55,9 @@ set foldlevel=100000
 " Unhighlight things
 nmap <C-N> :noh<CR>
 
+" Unhighlight things
+nmap <C-T> :tabnew<CR>
+
 "remap pane movement
 map <C-J> <C-W>j
 map <C-K> <C-W>k
@@ -62,6 +66,10 @@ map <C-H> <C-W>h
 
 " show text replacement live
 set inccommand=nosplit
+
+set runtimepath^=~/.vim runtimepath+=~/.vim/after
+let &packpath = &runtimepath
+source ~/.vimrc
 
 "
 " ==== Languages ====
@@ -106,27 +114,43 @@ nnoremap <silent> <Leader>rg :Rg <C-R><C-W><CR>
 " FZF - file search
 nmap F :FZF<CR>
 " Options for fzf searching return syntax
-command! -bang -nargs=* Find cal fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!./git/*" --color "always"'.shellescape(<q-args>), 1, <bang>0)
+command! -bang -nargs=* Find cal fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --ignore-file ".gitignore" --glob "!./git/*" --color "always"'.shellescape(<q-args>), 1, <bang>0)
 
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<C-S>"
-let g:UltiSnipsJumpForwardTrigger="<C-N>"
-let g:UltiSnipsJumpBackwardTrigger="<C-P>"
+" omnisharp
+let g:OmniSharp_selector_findusages = 'fzf'
+let g:OmniSharp_selector_ui = 'fzf'
+let g:OmniSharp_want_snippet=1
 
-" If you want :UltiSnipsEdit to split your window.
+augroup omnisharp_commands
+  autocmd!
+  autocmd CursorHold *.cs OmniSharpTypeLookup
+
+  autocmd FileType cs nmap <silent> <buffer> <Leader>ff <Plug>(omnisharp_code_format)
+augroup END
+
+" omnisharp
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 
-" Vimwiki
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'index': 'readme',
-                      \ 'syntax': 'markdown', 'ext': '.md',
-                      \'custom_wiki2html': '~/bin/wiki2html.sh',
-                      \ 'path_html': '/Documents/notes'}]
-  
-" don't let all markdown files be vimwiki
-let g:vimwiki_global_ext = 0
-let g:vimwiki_markdown_link_ext = 1
+" deoplete
+let g:deoplete#enable_at_startup = 1
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+if !exists('g:context_filetype#same_filetypes')
+    let g:context_filetype#filetypes = {}
+endif
+call deoplete#custom#var('omni', 'functions', { 'css': ['csscomplete#CompleteCSS'] })
+
+"gitgutter
+set updatetime=100
+
+"vim-go
+let g:go_def_mapping_enabled = 1
+let g:syntastic_go_gometalinter_args = ['--structtag=false']
 
 
+" Stupid tmux stuff
 if exists('+termguicolors')
   let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
