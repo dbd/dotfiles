@@ -33,7 +33,7 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background, but no title bar buttons
-  #decorations: buttonless
+  decorations: buttonless
 
 
 scrolling:
@@ -61,7 +61,7 @@ font:
     family: Fira Mono for Powerline
     style: Italic
 
-  size: 9.0
+  size: 16.0
   offset:
     x: 0
     y: 0
