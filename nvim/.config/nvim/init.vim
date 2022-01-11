@@ -11,34 +11,26 @@ call plug#begin('~/.vim/plugged')
     let g:airline_powerline_fonts = 1
     " Color theme
     Plug 'rakr/vim-one'
-    " Show tags in file for quick navigation
-    Plug 'majutsushi/tagbar'
-    Plug 'lvht/tagbar-markdown'
     " File browser instead of netrw
     Plug 'scrooloose/nerdtree'
     " Plug 'valloric/youcompleteme'
     Plug 'Raimondi/delimitMate'
     Plug 'Shougo/unite.vim'
-    Plug 'lepture/vim-jinja'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'nvie/vim-flake8'
     Plug 'w0rp/ale'
-    Plug 'fatih/vim-go'
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
     Plug 'Konfekt/vim-alias'
     " Snippets are separated from the engine. Add this if you want them:
     Plug 'honza/vim-snippets'
 
-    Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+    Plug 'airblade/vim-gitgutter'
 
-    " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    " Plug 'deoplete-plugins/deoplete-jedi'
-    " Plug 'davidhalter/jedi-vim'
 
     Plug 'machakann/vim-sandwich'
 
-nmap ; :Unite buffer -start-insert -ignorecase<CR>
 call plug#end()
 
 "
@@ -111,10 +103,6 @@ let g:ale_linters = {'python': ['flake8']}
 " Tagbar
 nmap T :TagbarToggle<CR>
 
-" deoplete - code completion
-" Tab completion
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-let g:deoplete#enable_at_startup = 1
 
 " Ripgrep - code search
 nmap <C-G> :Rg<CR>
@@ -172,3 +160,6 @@ else
     autocmd VimEnter * Alias gct GoCoverageToggle
   augroup END
 endif
+
+" Unite
+nmap ; :Unite buffer -start-insert -ignorecase<CR>
