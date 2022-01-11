@@ -31,6 +31,7 @@ cdpath=(. $HOME)
 
 # OMZ init
 export ZSH=$HOME/.oh-my-zsh
+export XDG_CONFIG_HOME=$HOME/.config
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
 export FZF_DEFAULT_OPTS='--extended'
 export GOPRIVATE=github.com
@@ -42,12 +43,17 @@ export EDITOR=nvim
 alias vim="nvim"
 export FZF_DEFAULT_COMMAND='rg --files --ignore-file .gitignore'
 
+export PATH=$PATH:~/bin
+
 #Alias
 alias vbm="VBoxManage"
 alias g="git"
 alias h="hub"
 alias please="sudo !!"
 alias c3="source $HOME/miniconda3/bin/activate"
+alias kubectl="kubectl --insecure-skip-tls-verify"
+alias kctl="kubectl"
+alias clear_dns="sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache"
 
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin:$HOME/bin"
@@ -78,12 +84,3 @@ function hsed {
     sed -e 's#\[#\\[#g' -e 's#\]#\\]#g' -e 's#{#\{#g' -e 's#}#\}#g' -e 's#\.#\\.#g'  -e 's#\,#\\,#g' $1
 }
 
-function mongocon {
-    export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace llama mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode) 
-    kubectl run --namespace llama mongodb-client --rm --tty -i --restart='Never' --image bitnami/mongodb --command -- mongo admin --host mongodb --authenticationDatabase admin -u root -p $MONGODB_ROOT_PASSWORD
-    unset MONGODB_ROOT_PASSWORD
-}
-
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

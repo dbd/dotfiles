@@ -11,30 +11,34 @@ call plug#begin('~/.vim/plugged')
     let g:airline_powerline_fonts = 1
     " Color theme
     Plug 'rakr/vim-one'
+    " Show tags in file for quick navigation
+    Plug 'majutsushi/tagbar'
+    Plug 'lvht/tagbar-markdown'
     " File browser instead of netrw
     Plug 'scrooloose/nerdtree'
-    " Fuzzy find stuff
+    " Plug 'valloric/youcompleteme'
+    Plug 'Raimondi/delimitMate'
+    Plug 'Shougo/unite.vim'
+    Plug 'lepture/vim-jinja'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
-    " Flake8 cause linting sucks
     Plug 'nvie/vim-flake8'
-    " Error and syntax highlighting
     Plug 'w0rp/ale'
-    " Go plugins
-    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+    Plug 'fatih/vim-go'
 
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-    Plug 'evanleck/vim-svelte'
-
-    Plug 'machakann/vim-sandwich'
-    Plug 'Raimondi/delimitMate'
-    Plug 'OmniSharp/omnisharp-vim'
-    Plug 'SirVer/ultisnips'
+    Plug 'Konfekt/vim-alias'
+    " Snippets are separated from the engine. Add this if you want them:
     Plug 'honza/vim-snippets'
 
-    Plug 'airblade/vim-gitgutter'
+    Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
+    " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    " Plug 'deoplete-plugins/deoplete-jedi'
+    " Plug 'davidhalter/jedi-vim'
+
+    Plug 'machakann/vim-sandwich'
+
+nmap ; :Unite buffer -start-insert -ignorecase<CR>
 call plug#end()
 
 "
@@ -55,8 +59,8 @@ set foldlevel=100000
 " Unhighlight things
 nmap <C-N> :noh<CR>
 
-" Unhighlight things
-nmap <C-T> :tabnew<CR>
+" New tab
+map <C-T> :tabnew<CR>
 
 "remap pane movement
 map <C-J> <C-W>j
@@ -69,7 +73,7 @@ set inccommand=nosplit
 
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
-source ~/.vimrc
+" source ~/.vimrc
 
 "
 " ==== Languages ====
@@ -98,7 +102,7 @@ let g:go_highlight_types = 1
 " ==== Plugin Configs ====
 "
 " Nerdtree - file explorer
-nnoremap <leader>n <ESC>:NERDTree<CR>
+nnoremap <leader>N <ESC>:NERDTree<CR>
 let NERDTreeMinimalUI = 1
 
 " Ale - linting
@@ -106,6 +110,11 @@ let g:ale_linters = {'python': ['flake8']}
 
 " Tagbar
 nmap T :TagbarToggle<CR>
+
+" deoplete - code completion
+" Tab completion
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+let g:deoplete#enable_at_startup = 1
 
 " Ripgrep - code search
 nmap <C-G> :Rg<CR>
@@ -128,19 +137,6 @@ augroup omnisharp_commands
   autocmd FileType cs nmap <silent> <buffer> <Leader>ff <Plug>(omnisharp_code_format)
 augroup END
 
-" omnisharp
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsEditSplit="vertical"
-
-" deoplete
-let g:deoplete#enable_at_startup = 1
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-if !exists('g:context_filetype#same_filetypes')
-    let g:context_filetype#filetypes = {}
-endif
-call deoplete#custom#var('omni', 'functions', { 'css': ['csscomplete#CompleteCSS'] })
 
 "gitgutter
 set updatetime=100
@@ -148,7 +144,6 @@ set updatetime=100
 "vim-go
 let g:go_def_mapping_enabled = 1
 let g:syntastic_go_gometalinter_args = ['--structtag=false']
-
 
 " Stupid tmux stuff
 if exists('+termguicolors')
@@ -160,3 +155,20 @@ endif
 set background=dark " for the dark version
 " set background=light " for the light version
 colorscheme one
+" Vim-Jedi - completion and goto stuff
+let g:jedi#goto_stubs_command = "<leader>S"
+
+" Go
+nnoremap <leader>f <ESC>:GoFmt<CR>
+let g:go_def_mapping_enabled = 0
+" autocmd VimAfter Alias gct GoCoverageToggle
+let g:go_imports_autosave = 1
+if exists('s:loaded_vimafter')
+  silent doautocmd VimAfter VimEnter *
+else
+  let s:loaded_vimafter = 1
+  augroup VimAfter
+    autocmd!
+    autocmd VimEnter * Alias gct GoCoverageToggle
+  augroup END
+endif
