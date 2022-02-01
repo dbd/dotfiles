@@ -35,7 +35,10 @@ export XDG_CONFIG_HOME=$HOME/.config
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
 export FZF_DEFAULT_OPTS='--extended'
 export GOPRIVATE=github.com
-source ~/.fzf.zsh
+
+# For mac uncomment the below and comment the /usr/share
+#source ~/.fzf.zsh
+source /usr/share/fzf/shell/key-bindings.zsh
 
 #Export
 #mac vim sucks
