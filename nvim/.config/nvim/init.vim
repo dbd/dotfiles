@@ -60,6 +60,8 @@ map <C-K> <C-W>k
 map <C-L> <C-W>l
 map <C-H> <C-W>h
 
+au BufEnter,BufNew *.go map <Leader>br :GoDebugBreakpoint <CR>
+
 " show text replacement live
 set inccommand=nosplit
 
@@ -132,6 +134,7 @@ set updatetime=100
 "vim-go
 let g:go_def_mapping_enabled = 1
 let g:syntastic_go_gometalinter_args = ['--structtag=false']
+let g:go_bin_path = expand("$GOPATH/bin/")
 
 " Stupid tmux stuff
 if exists('+termguicolors')
@@ -148,6 +151,8 @@ let g:jedi#goto_stubs_command = "<leader>S"
 
 " Go
 nnoremap <leader>f <ESC>:GoFmt<CR>
+" let g:go_doc_popup_window = 1 " Doesn't work in nvim
+let g:go_debug_breakpoint_sign_text = '•'
 let g:go_def_mapping_enabled = 0
 " autocmd VimAfter Alias gct GoCoverageToggle
 let g:go_imports_autosave = 1
@@ -162,4 +167,5 @@ else
 endif
 
 " Unite
-nmap ; :Unite buffer -start-insert -ignorecase<CR>
+nmap ; :Unite command -start-insert -ignorecase<CR>
+nmap ' :Unite buffer -start-insert -ignorecase<CR>
