@@ -26,7 +26,8 @@ export SPACESHIP_PROMPT_ADD_NEWLINE=false
 ZSH_THEME="spaceship"
 
 # Plugin and plugin config
-plugins=(ssh-agent sudo docker)
+plugins=(ssh-agent sudo docker asdf)
+# install asdf with `git clone https://github.com/asdf-vm/asdf.git ~/.asdf`
 cdpath=(. $HOME)
 
 # OMZ init
@@ -46,7 +47,7 @@ export EDITOR=nvim
 alias vim="nvim"
 export FZF_DEFAULT_COMMAND='rg --files --ignore-file .gitignore'
 
-export PATH=$PATH:/usr/local/go/bin:~/bin
+export PATH=$PATH:/usr/local/go/bin:~/bin:$HOME/gems/bin:$HOME/.krew/bin
 
 #Alias
 alias vbm="VBoxManage"
@@ -54,12 +55,14 @@ alias g="git"
 alias h="hub"
 alias please="sudo !!"
 alias c3="source $HOME/miniconda3/bin/activate"
-alias kubectl="kubectl --insecure-skip-tls-verify"
-alias kctl="kubectl"
+alias kc="kubectl"
 alias clear_dns="sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache"
 
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin:$HOME/bin"
+
+export CHARM_HOST=charm.dbd.sh
+export CHARM_SERVER_HTTP_SCHEME=https
 
 #Functions
 function mkcd {
@@ -87,3 +90,6 @@ function hsed {
     sed -e 's#\[#\\[#g' -e 's#\]#\\]#g' -e 's#{#\{#g' -e 's#}#\}#g' -e 's#\.#\\.#g'  -e 's#\,#\\,#g' $1
 }
 
+export GEM_HOME="$HOME/gems"
+
+[[ -s "/home/dbd/.gvm/scripts/gvm" ]] && source "/home/dbd/.gvm/scripts/gvm"
