@@ -7,23 +7,20 @@ zstyle :omz:plugins:ssh-agent identities id_ed25519
 #Spaceship prompt
 # I don't need all the prompts so only show the following
 SPACESHIP_PROMPT_ORDER=(
-  user          # Username section
   dir           # Current directory section
-  host          # Hostname section
   git           # Git section (git_branch + git_status)
   node          # Node.js section
   golang        # Go section
   docker        # Docker section
   venv          # virtualenv section
   conda         # conda virtualenv section
-  pyenv         # Pyenv section
   exec_time     # Execution time
   char          # Prompt character
   )
 export SPACESHIP_PROMPT_SEPARATE_LINE=false
 export SPACESHIP_PROMPT_ADD_NEWLINE=false
 
-ZSH_THEME="spaceship"
+ZSH_THEME="eastwood"
 
 # Plugin and plugin config
 plugins=(ssh-agent sudo docker asdf)
