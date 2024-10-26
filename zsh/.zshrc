@@ -35,8 +35,10 @@ export FZF_DEFAULT_OPTS='--extended'
 export GOPRIVATE=github.com
 
 # For mac uncomment the below and comment the /usr/share
-#source ~/.fzf.zsh
-source /usr/share/fzf/shell/key-bindings.zsh
+# source ~/.fzf.zsh
+# source /usr/share/fzf/shell/key-bindings.zsh
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
 
 #Export
 #mac vim sucks
@@ -77,11 +79,9 @@ function gcloud_init {
 }
 
 # Only init nvm things when I need them, saves load time
-function nvm_init {
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-}
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 function hsed {
     sed -e 's#\[#\\[#g' -e 's#\]#\\]#g' -e 's#{#\{#g' -e 's#}#\}#g' -e 's#\.#\\.#g'  -e 's#\,#\\,#g' $1

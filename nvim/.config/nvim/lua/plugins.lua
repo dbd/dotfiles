@@ -40,5 +40,6 @@ return require('packer').startup(function(use)
   use 'nvie/vim-flake8'
   use {
     'fatih/vim-go',
-    config = 'vim.cmd[[GoUpdateBinaries]]'}
+    --config = 'vim.cmd[[GoUpdateBinaries]]'
+}
 end)

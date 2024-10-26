@@ -36,7 +36,6 @@ require("plugins")
 require("bindings")
 require("lualine").setup()
 require("fzf")
-require("go")
+-- require("go")
 require("python")
 require("ale")
-
