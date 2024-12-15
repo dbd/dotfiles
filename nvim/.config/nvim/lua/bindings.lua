@@ -28,7 +28,6 @@ vim.api.nvim_set_keymap("n", "<leader>N", "<ESC>:NERDTree<CR>", {})
 vim.api.nvim_set_keymap("n", "<leader>f", ":GoFmt", {})
 
 -- Unite
-vim.api.nvim_set_keymap("n", ";", ":Unite command -start-insert -ignorecase<CR>", {})
 vim.api.nvim_set_keymap("n", "'", ":Unite buffer -start-insert -ignorecase<CR>", {})
 
 -- Git
