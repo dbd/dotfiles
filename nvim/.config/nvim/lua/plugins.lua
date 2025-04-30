@@ -18,7 +18,7 @@ return require('packer').startup(function(use)
   -- Also run code after load (see the "config" key)
   use {
     'w0rp/ale',
-    ft = {'sh', 'zsh', 'bash', 'python', 'go', 'html', 'markdown', 'vim'},
+    ft = {'sh', 'zsh', 'bash', 'python', 'html', 'markdown', 'vim'},
     cmd = 'ALEEnable',
     config = 'vim.cmd[[ALEEnable]]'
   }
@@ -29,7 +29,7 @@ return require('packer').startup(function(use)
       requires = { 'nvim-tree/nvim-web-devicons', opt=true }
   }
   use 'Raimondi/delimitMate'
-  use {'neoclide/coc.nvim', branch = 'release'}
+  -- use {'neoclide/coc.nvim', branch = 'release'}
   use 'Shougo/unite.vim'
   use 'machakann/vim-sandwich'
   use {

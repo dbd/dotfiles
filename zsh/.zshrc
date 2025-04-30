@@ -35,10 +35,8 @@ export FZF_DEFAULT_OPTS='--extended'
 export GOPRIVATE=github.com
 
 # For mac uncomment the below and comment the /usr/share
-# source ~/.fzf.zsh
-# source /usr/share/fzf/shell/key-bindings.zsh
-source /usr/share/doc/fzf/examples/key-bindings.zsh
-source /usr/share/doc/fzf/examples/completion.zsh
+source ~/.fzf.zsh
+#source /usr/share/fzf/shell/key-bindings.zsh
 
 #Export
 #mac vim sucks
@@ -90,3 +88,8 @@ function hsed {
 export GEM_HOME="$HOME/gems"
 
 [[ -s "/home/dbd/.gvm/scripts/gvm" ]] && source "/home/dbd/.gvm/scripts/gvm"
+
+setopt nosharehistory
+setopt noincappendhistory
+
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"

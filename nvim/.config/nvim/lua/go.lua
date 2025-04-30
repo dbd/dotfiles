@@ -23,3 +23,9 @@ vim.cmd("au BufEnter,BufNew *.go map <Leader>br :GoDebugBreakpoint <CR>")
 --         command = vim.api.nvim_set_keymap("n", "<leader>br", ":GoDebugBreakpoint <CR>", {})
 --     }
 -- )
+vim.g.go_debug_mappings = {
+     ["(go-debug-continue)"] = {key = "c", arguments = "<nowait>"},
+     ["(go-debug-stop)"]     = {key = "q"},
+     ["(go-debug-next)"]     = {key = "n", arguments = "<nowait>"},
+     ["(go-debug-step)"]     = {key = "s"},
+}

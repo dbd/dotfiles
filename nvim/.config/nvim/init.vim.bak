@@ -20,7 +20,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/fzf.vim'
     Plug 'nvie/vim-flake8'
     Plug 'w0rp/ale'
-    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+    Plug 'fatih/vim-go'
 
     Plug 'Konfekt/vim-alias'
     " Snippets are separated from the engine. Add this if you want them:
