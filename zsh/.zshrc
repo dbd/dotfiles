@@ -4,6 +4,14 @@ git -C ~/.config/dotfiles status | grep "committed" >/dev/null && echo 'Commited
 # Needed on mac because it doesn't autoload the ssh key
 zstyle :omz:plugins:ssh-agent identities id_ed25519
 
+_os=$(uname)
+if [ $_os == "Darwin"]; then
+    source ~/.fzf.zsh
+else
+    source /usr/share/fzf/shell/key-bindings.zsh
+fi
+
+
 #Spaceship prompt
 # I don't need all the prompts so only show the following
 SPACESHIP_PROMPT_ORDER=(
@@ -35,8 +43,7 @@ export FZF_DEFAULT_OPTS='--extended'
 export GOPRIVATE=github.com
 
 # For mac uncomment the below and comment the /usr/share
-source ~/.fzf.zsh
-#source /usr/share/fzf/shell/key-bindings.zsh
+
 
 #Export
 #mac vim sucks
@@ -69,10 +76,10 @@ function mkcd {
 # Only init gcloud things when I need them, saves load time
 function gcloud_init {
     # The next line updates PATH for the Google Cloud SDK.
-    if [ -f '/Users/dbd/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dbd/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+    if [ -f "$HOME/Downloads/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/path.zsh.inc"; fi
 
     # The next line enables shell command completion for gcloud.
-    if [ -f '/Users/dbd/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/dbd/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+    if [ -f "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc"; fi
 
 }
 
@@ -87,7 +94,7 @@ function hsed {
 
 export GEM_HOME="$HOME/gems"
 
-[[ -s "/home/dbd/.gvm/scripts/gvm" ]] && source "/home/dbd/.gvm/scripts/gvm"
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 setopt nosharehistory
 setopt noincappendhistory
