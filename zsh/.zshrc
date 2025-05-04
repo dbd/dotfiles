@@ -4,8 +4,8 @@ git -C ~/.config/dotfiles status | grep "committed" >/dev/null && echo 'Commited
 # Needed on mac because it doesn't autoload the ssh key
 zstyle :omz:plugins:ssh-agent identities id_ed25519
 
-_os=$(uname)
-if [ $_os == "Darwin"]; then
+os=$(uname)
+if [[ "$os" == "Darwin" ]]; then
     source ~/.fzf.zsh
 else
     source /usr/share/fzf/shell/key-bindings.zsh
