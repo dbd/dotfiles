@@ -93,3 +93,10 @@ setopt nosharehistory
 setopt noincappendhistory
 
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
+alias gfp="git push origin \`git branch --show-current\` -f"
+
+function gdiff {
+    branch=`git branch --show-current`
+    nvim "+Git difftool -y master...$branch"
+}
