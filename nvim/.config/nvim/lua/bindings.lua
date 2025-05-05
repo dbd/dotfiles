@@ -11,7 +11,7 @@ vim.api.nvim_set_keymap("n", "<C-L>", "<C-W>l", {})
 vim.api.nvim_set_keymap("n", "<C-H>", "<C-W>h", {})
 
 vim.api.nvim_set_keymap("n","<leader>T", "j:s# #,#g<CR>:noh<CR>", {})
-vim.api.nvim_set_keymap("n","<leader>b", "<ESC>:!jblack %<CR>", {})
+vim.api.nvim_set_keymap("n","<leader>b", ":CocCommand editor.action.formatDocument<CR>", {})
 
 -- FZF
 vim.api.nvim_set_keymap("n", "<leader>co", ":CO<cr>", {silent = true})
@@ -43,4 +43,3 @@ vim.api.nvim_set_keymap("n", "gd", "<Plug>(coc-definition)", {silent = true})
 vim.api.nvim_set_keymap("n", "gy", "<Plug>(coc-type-definition)", {silent = true})
 vim.api.nvim_set_keymap("n", "gi", "<Plug>(coc-implementation)", {silent = true})
 vim.api.nvim_set_keymap("n", "gr", "<Plug>(coc-references)", {silent = true})
-

@@ -5,6 +5,8 @@
 #
 # Read `man 5 sway` for a complete reference.
 
+exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
+
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
@@ -175,9 +177,9 @@ bindsym $mod+r mode "resize"
 # Utilities:
 #
     # Special keys to adjust volume via PulseAudio
-    bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
-    bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
-    bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+    bindsym --locked XF86AudioMute exec amixer -D pulse set Master 1+ toggle
+    bindsym --locked XF86AudioLowerVolume exec amixer -D pulse sset Master 5%-
+    bindsym --locked XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+
     bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
     # Special keys to adjust brightness via brightnessctl
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
@@ -234,9 +236,15 @@ client.placeholder       $base02  $base00      $base06  $base06  $base04
 client.background        $base00
 
 bar {
-     swaybar_command waybar
+     swaybar_command swaybar
 }
 
 font "FiraMono Nerd Font Mono" Regular 11
 # 
 # default_border pixel 2
+
+bindsym $mod+g exec swaymsg \[con_id=$(swaymsg -t get_tree | jq -r '.nodes | .[] | .nodes | . [] | select(.nodes != null) | .nodes | .[] | select(.name != null) | "\(.id?) \(.name?)"' | rofi -dmenu -i | awk '{print $1}')] focus
+
+    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%

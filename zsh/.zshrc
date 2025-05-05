@@ -107,3 +107,10 @@ function gdiff {
     branch=`git branch --show-current`
     nvim "+Git difftool -y master...$branch"
 }
+
+# pnpm
+export PNPM_HOME="/home/dbd/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac

@@ -41,5 +41,37 @@ return require('packer').startup(function(use)
   use {
     'fatih/vim-go',
     --config = 'vim.cmd[[GoUpdateBinaries]]'
-}
+  }
+  use {'nvim-treesitter/nvim-treesitter',
+    cmd = 'TSUpdate',
+    config = function()
+      require("nvim-treesitter.configs").setup({
+            ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "svelte", "javascript", "typescript", "css", 'html'},
+            auto_install = true,
+            highlight = {
+            enable = true,
+            },
+      })
+    end,
+  }
+  use({
+    "epwalsh/obsidian.nvim",
+    tag = "*",  -- recommended, use latest release instead of latest commit
+    requires = {
+      -- Required.
+      "nvim-lua/plenary.nvim",
+      'nvim-treesitter/nvim-treesitter',
+
+    },
+    config = function()
+      require("obsidian").setup({
+        workspaces = {
+          {
+            name = "personal",
+            path = "~/Documents/obsidian/Personal/Personal",
+          },
+        },
+      })
+    end,
+  })
 end)
