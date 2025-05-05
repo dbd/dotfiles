@@ -1,4 +1,9 @@
-vim.api.nvim_create_autocmd({ "FileType" }, {
-    pattern = "svelte",
-    command = ":TSUpdate<CR>",
-})
+require('nvim-treesitter.configs').setup {
+  ensure_installed = { "typescript", "scss", "svelte", "lua" },
+  sync_install = false,
+  auto_install = false,
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = true,
+  },
+}

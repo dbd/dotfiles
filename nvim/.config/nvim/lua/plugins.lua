@@ -29,7 +29,7 @@ return require('packer').startup(function(use)
       requires = { 'nvim-tree/nvim-web-devicons', opt=true }
   }
   use 'Raimondi/delimitMate'
-  -- use {'neoclide/coc.nvim', branch = 'release'}
+  use {'neoclide/coc.nvim', branch = 'release'}
   use 'Shougo/unite.vim'
   use 'machakann/vim-sandwich'
   use {
@@ -54,24 +54,4 @@ return require('packer').startup(function(use)
       })
     end,
   }
-  use({
-    "epwalsh/obsidian.nvim",
-    tag = "*",  -- recommended, use latest release instead of latest commit
-    requires = {
-      -- Required.
-      "nvim-lua/plenary.nvim",
-      'nvim-treesitter/nvim-treesitter',
-
-    },
-    config = function()
-      require("obsidian").setup({
-        workspaces = {
-          {
-            name = "personal",
-            path = "~/Documents/obsidian/Personal/Personal",
-          },
-        },
-      })
-    end,
-  })
 end)
