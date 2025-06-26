@@ -51,7 +51,7 @@ export EDITOR=nvim
 alias vim="nvim"
 export FZF_DEFAULT_COMMAND='rg --files --ignore-file .gitignore'
 
-export PATH=$HOME/bin:$PATH:/usr/local/go/bin:$HOME/gems/bin:$HOME/.krew/bin:$HOME/.local/bin
+export PATH=$PATH:/usr/local/go/bin:~/bin:$HOME/gems/bin:$HOME/.krew/bin:$HOME/.local/bin:/opt/homebrew/bin:/Users/dbd/Library/Python/3.9/bin
 
 #Alias
 alias vbm="VBoxManage"
