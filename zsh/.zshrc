@@ -25,8 +25,7 @@ export SPACESHIP_PROMPT_ADD_NEWLINE=false
 ZSH_THEME="eastwood"
 
 # Plugin and plugin config
-plugins=(ssh-agent sudo docker asdf fzf)
-# install asdf with `git clone https://github.com/asdf-vm/asdf.git ~/.asdf`
+plugins=(ssh-agent sudo docker fzf)
 cdpath=(. $HOME)
 
 # OMZ init
@@ -45,7 +44,7 @@ export EDITOR=nvim
 alias vim="nvim"
 export FZF_DEFAULT_COMMAND='rg --files --ignore-file .gitignore'
 
-export PATH=$PATH:/usr/local/go/bin:~/bin:$HOME/gems/bin:$HOME/.krew/bin:$HOME/.local/bin:/opt/homebrew/bin:/Users/dbd/Library/Python/3.9/bin
+export PATH="/opt/homebrew/bin:$PATH:/usr/local/go/bin:~/bin:$HOME/gems/bin:$HOME/.krew/bin:$HOME/.local/bin:/Users/dbd/Library/Python/3.9/bin"
 
 #Alias
 alias vbm="VBoxManage"
@@ -94,9 +93,6 @@ export GEM_HOME="$HOME/gems"
 setopt nosharehistory
 setopt noincappendhistory
 
-export ASDF_DATA_DIR="/home/dbd/.asdf"
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-
 alias gfp="git push origin \`git branch --show-current\` -f"
 
 function gdiff {
@@ -104,15 +100,4 @@ function gdiff {
     nvim "+Git difftool -y master...$branch"
 }
 
-# pnpm
-export PNPM_HOME="/home/dbd/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# opencode
-export PATH=/home/dbd/.opencode/bin:$PATH
