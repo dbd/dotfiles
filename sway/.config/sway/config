@@ -5,7 +5,7 @@
 #
 # Read `man 5 sway` for a complete reference.
 
-exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
+# exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
 
 ### Variables
 #
@@ -34,6 +34,7 @@ set $menu fuzzel
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
+output * bg /usr/share/backgrounds/default.jxl fill
 
 
 ### Key bindings
@@ -174,40 +175,12 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 #
-# Utilities:
-#
-    # Special keys to adjust volume via PulseAudio
-    bindsym --locked XF86AudioMute exec amixer -D pulse set Master 1+ toggle
-    bindsym --locked XF86AudioLowerVolume exec amixer -D pulse sset Master 5%-
-    bindsym --locked XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+
-    bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
-    # Special keys to adjust brightness via brightnessctl
-    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
-    bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
-    # Special key to take a screenshot with grim
-    bindsym Print exec grim
-
 #
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %X'; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
-}
-
-# include @sysconfdir@/sway/config.d/
-
-gaps inner 10
+gaps  10
 
 set $base00 #282828
 set $base01 #3c3836
@@ -235,16 +208,10 @@ client.urgent            $base07  $base00      $base06  $base06  $base02
 client.placeholder       $base02  $base00      $base06  $base06  $base04
 client.background        $base00
 
-bar {
-     swaybar_command swaybar
-}
-
 font "FiraMono Nerd Font Mono" Regular 11
 # 
 # default_border pixel 2
 
 bindsym $mod+g exec swaymsg \[con_id=$(swaymsg -t get_tree | jq -r '.nodes | .[] | .nodes | . [] | select(.nodes != null) | .nodes | .[] | select(.name != null) | "\(.id?) \(.name?)"' | rofi -dmenu -i | awk '{print $1}')] focus
 
-    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+include '$(/usr/libexec/sway/layered-include "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
