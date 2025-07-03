@@ -180,7 +180,7 @@ bindsym $mod+r mode "resize"
 #
 # Read `man 5 sway-bar` for more information about this section.
 
-gaps  10
+gaps inner 10
 
 set $base00 #282828
 set $base01 #3c3836
