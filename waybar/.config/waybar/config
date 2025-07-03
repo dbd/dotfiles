@@ -9,22 +9,6 @@
     "modules-center": ["sway/workspaces"],
     "modules-right": [ "custom/cpugovernor", "cpu", "temperature", "custom/gpu", "pulseaudio", "bluetooth", "network", "tray"],
     // Modules configuration
-    "sway/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": true,
-        "format": "{icon}",
-        "format-icons": {
-            "1": "<span color=\"#D8DEE9\">⚀</span>",
-            "2": "<span color=\"#88C0D0\">⚁</span>",
-            "3": "<span color=\"#A3BE8C\">⚂</span>",
-            "4": "<span color=\"#D8DEE9\">⚃</span>",
-            "5": "<span color=\"#D8DEE9\">⚄</span>",
-            "6": "<span color=\"#D8DEE9\">⚅</span>",
-            "urgent": "",
-            "focused": "",
-            "default": ""
-        }
-    },
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
