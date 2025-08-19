@@ -29,7 +29,7 @@ return require('packer').startup(function(use)
       requires = { 'nvim-tree/nvim-web-devicons', opt=true }
   }
   use 'Raimondi/delimitMate'
-  use {'neoclide/coc.nvim', branch = 'release'}
+  use {'neoclide/coc.nvim', branch = 'master', run = 'npm ci'}
   use 'Shougo/unite.vim'
   use 'machakann/vim-sandwich'
   use {

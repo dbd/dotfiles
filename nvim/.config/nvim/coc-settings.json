@@ -6,5 +6,9 @@
         "filetypes": ["go"]
         }
     },
-    "svelte.enable-ts-plugin": true
+    "svelte.enable-ts-plugin": true,
+    "python.formatting.provider": "black",
+    "pyright.inlayHints.variableTypes": false,
+    "pyright.inlayHints.parameterTypes": false,
+    "pyright.inlayHints.functionReturnTypes": false
 }

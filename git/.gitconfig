@@ -1,6 +1,7 @@
 [user]
 	name = Derek Daniels
 	email = dbdaniel@mtu.edu
+	signingkey = /home/dbd/.ssh/id_ed25519.pub
 [alias]
     s = status
     t = !git --no-pager tag
@@ -25,3 +26,5 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
+[gpg]
+	format = ssh

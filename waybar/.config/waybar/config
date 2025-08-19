@@ -9,6 +9,9 @@
     "modules-center": ["sway/workspaces"],
     "modules-right": [ "custom/cpugovernor", "cpu", "temperature", "custom/gpu", "pulseaudio", "bluetooth", "network", "tray"],
     // Modules configuration
+    "sway/workspaces": {
+        "expand": "true",
+    },
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },

@@ -149,8 +149,7 @@
 /* Workspaces stuff */
 
 #workspaces {
- /*   color: #D8DEE9;
-    margin-right: 10px;*/
+    padding: 0 100em
 }
 
 #workspaces button {
