@@ -29,6 +29,7 @@ vim.api.nvim_set_keymap("n", "<leader>f", ":GoFmt", {})
 
 -- Unite
 vim.api.nvim_set_keymap("n", "'", ":Unite buffer -start-insert -ignorecase<CR>", {})
+vim.api.nvim_set_keymap("n", "B", ":Buffers<cr>", {})
 
 -- Git
 vim.api.nvim_set_keymap("n", "gb", ":Git blame<cr>", {})
@@ -43,3 +44,18 @@ vim.api.nvim_set_keymap("n", "gd", "<Plug>(coc-definition)", {silent = true})
 vim.api.nvim_set_keymap("n", "gy", "<Plug>(coc-type-definition)", {silent = true})
 vim.api.nvim_set_keymap("n", "gi", "<Plug>(coc-implementation)", {silent = true})
 vim.api.nvim_set_keymap("n", "gr", "<Plug>(coc-references)", {silent = true})
+vim.keymap.set('n', '<C-/>', 'gcc', { remap = true })
+vim.keymap.set('v', '<C-/>', 'gc',  { remap = true })
+
+vim.api.nvim_create_user_command("GDP", function()
+  local commit_count = vim.fn.systemlist(
+    string.format("gh pr view --json commits --jq '.commits | length'", prnum)
+  )[1]
+  commit_count = tonumber(commit_count) or 0
+  if commit_count <= 0 then
+    print("No commits found in PR")
+    return
+  end
+  local base_ref = string.format("HEAD~%d", commit_count)
+  vim.cmd(string.format("Git difftool -y %s", base_ref))
+end, { nargs = 0 })

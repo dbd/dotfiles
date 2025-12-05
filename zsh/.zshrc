@@ -4,13 +4,7 @@ git -C ~/.config/dotfiles status | grep "committed" >/dev/null && echo 'Commited
 # Needed on mac because it doesn't autoload the ssh key
 zstyle :omz:plugins:ssh-agent identities id_ed25519
 
-os=$(uname)
-if [[ "$os" == "Darwin" ]]; then
-    source ~/.fzf.zsh
-else
-    source <(fzf --zsh)
-fi
-
+source <(fzf --zsh)
 
 #Spaceship prompt
 # I don't need all the prompts so only show the following
@@ -31,7 +25,7 @@ export SPACESHIP_PROMPT_ADD_NEWLINE=false
 ZSH_THEME="eastwood"
 
 # Plugin and plugin config
-plugins=(ssh-agent sudo docker asdf)
+plugins=(ssh-agent sudo docker asdf fzf)
 # install asdf with `git clone https://github.com/asdf-vm/asdf.git ~/.asdf`
 cdpath=(. $HOME)
 
@@ -61,6 +55,7 @@ alias please="sudo !!"
 alias c3="source $HOME/miniconda3/bin/activate"
 alias kc="kubectl"
 alias clear_dns="sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache"
+alias python="/Users/derekdaniels/.local/bin/python3.13"
 
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin:$HOME/bin"

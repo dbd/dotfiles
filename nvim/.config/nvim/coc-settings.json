@@ -1,14 +1,33 @@
 {
     "languageserver": {
         "golang": {
-        "command": "gopls",
-        "rootPatterns": ["go.mod"],
-        "filetypes": ["go"]
+            "command": "gopls",
+            "rootPatterns": [
+                "go.mod"
+            ],
+            "filetypes": [
+                "go"
+            ]
+        }
+    },
+    "formatters": {
+        "ruff": {
+            "command": "uv",
+            "args": [
+                "run",
+                "ruff",
+                "format",
+                "--stdin-filename",
+                "%filepath",
+                "-"
+            ],
+            "stdin": true
         }
     },
     "svelte.enable-ts-plugin": true,
-    "python.formatting.provider": "black",
+    "python.formatting.provider": "ruff",
     "pyright.inlayHints.variableTypes": false,
     "pyright.inlayHints.parameterTypes": false,
-    "pyright.inlayHints.functionReturnTypes": false
+    "pyright.inlayHints.functionReturnTypes": false,
+    "coc.preferences.jumpCommand": "tabe"
 }
