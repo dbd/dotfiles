@@ -50,6 +50,11 @@ output * bg /home/dbd/Pictures/wallpaper.jpg fill
     # Start your launcher
     bindsym $mod+d exec $menu
 
+    bindsym --whole-window {
+        $mod+Alt+button5 exec swaymsg opacity minus .05
+        $mod+Alt+button4 exec swaymsg opacity plus .05
+    }
+
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.

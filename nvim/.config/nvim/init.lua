@@ -12,6 +12,8 @@ vim.opt.inccommand = "nosplit"
 vim.opt.updatetime = 100
 vim.opt.background = "dark"
 vim.opt.encoding = "utf-8"
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
 
 vim.cmd([[
@@ -55,3 +57,4 @@ require("fzf")
 require("python")
 require("ale_config")
 require("coc")
+require("crush")

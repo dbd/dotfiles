@@ -32,11 +32,32 @@ return require('packer').startup(function(use)
   use 'Raimondi/delimitMate'
   use {'neoclide/coc.nvim', branch = 'master', run = 'npm ci'}
   use 'Shougo/unite.vim'
+  use 'tpope/vim-fugitive'
   use 'machakann/vim-sandwich'
   use {
     'junegunn/fzf',
     run = 'cd ~/.fzf && ./install --all',
   }
+  use({
+  "epwalsh/obsidian.nvim",
+  tag = "*",  -- recommended, use latest release instead of latest commit
+  requires = {
+    -- Required.
+    "nvim-lua/plenary.nvim",
+
+    -- see below for full list of optional dependencies 👇
+  },
+  config = function()
+    require("obsidian").setup({
+      workspaces = {
+        {
+          name = "personal",
+          path = "~/Documents/obsidian/Personal",
+        },
+      },
+    })
+  end,
+})
   use 'junegunn/fzf.vim'
   use 'nvie/vim-flake8'
   use {
