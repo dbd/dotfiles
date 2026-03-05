@@ -19,6 +19,7 @@
     "pyright.inlayHints.parameterTypes": false,
     "pyright.inlayHints.functionReturnTypes": false,
     "prettier.disableLanguages": ["go"],
-  "prettier.filetypes": ["javascript","javascriptreact","typescript","typescriptreact","json","yaml","markdown","css","scss","html","svelte"],
-  "go.goplsPath": "/home/dbd/go/bin/gopls"
+    "prettier.filetypes": ["javascript","javascriptreact","typescript","typescriptreact","json","yaml","markdown","css","scss","html","svelte"],
+    "go.goplsPath": "/home/dbd/go/bin/gopls",
+    "coc.preferences.jumpCommand": "vsplit"
 }

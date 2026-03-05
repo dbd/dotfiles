@@ -23,7 +23,9 @@ require('packer').startup(function(use)
     config = 'vim.cmd[[ALEEnable]]'
   }
 
+  use 'rakr/vim-one'
   use 'navarasu/onedark.nvim'
+  use 'tpope/vim-fugitive'
   use {
       'nvim-lualine/lualine.nvim',
       requires = { 'nvim-tree/nvim-web-devicons', opt=true }

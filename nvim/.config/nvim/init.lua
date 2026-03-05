@@ -82,3 +82,11 @@ require("ale_config")
 require("coc")
 require("agent")
 require("netrw")
+vim.api.nvim_create_autocmd("OptionSet", {
+  pattern = "diff",
+  callback = function()
+    if vim.v.option_new == "1" then
+      vim.opt_local.foldenable = false
+    end
+  end,
+})
