@@ -1,6 +1,6 @@
 [user]
 	name = Derek Daniels
-	email = dbdaniel@mtu.edu
+	email = derek@dbd.sh
 	signingkey = /home/dbd/.ssh/id_ed25519.pub
 [alias]
     s = status
@@ -16,6 +16,7 @@
 	protocol = https
 [commit]
     verbose = true
+	gpgsign = true
 [push]
     autoSetupRemote = true
 [pull]
@@ -32,8 +33,10 @@
     tool = nvimdiff
 [filter "lfs"]
 	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
+	smudge = git-lfs smudge --skip
+	process = git-lfs filter-process --skip
 	required = true
 [core]
 	pager = cat
+[tag]
+	gpgSign = true
