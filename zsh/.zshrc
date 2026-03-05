@@ -94,6 +94,7 @@ export GEM_HOME="$HOME/gems"
 setopt nosharehistory
 setopt noincappendhistory
 
+export ASDF_DATA_DIR="/home/dbd/.asdf"
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 alias gfp="git push origin \`git branch --show-current\` -f"
@@ -110,3 +111,8 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# opencode
+export PATH=/home/dbd/.opencode/bin:$PATH
