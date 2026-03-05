@@ -22,7 +22,7 @@ SPACESHIP_PROMPT_ORDER=(
 export SPACESHIP_PROMPT_SEPARATE_LINE=false
 export SPACESHIP_PROMPT_ADD_NEWLINE=false
 
-ZSH_THEME="eastwood"
+ZSH_THEME="eastwood_remote"
 
 # Plugin and plugin config
 plugins=(ssh-agent sudo docker asdf fzf)
