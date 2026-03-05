@@ -31,4 +31,5 @@
     "pyright.inlayHints.functionReturnTypes": false,
     "prettier.disableLanguages": ["go"],
   "prettier.filetypes": ["javascript","javascriptreact","typescript","typescriptreact","json","yaml","markdown","css","scss","html","svelte"]
+    "coc.preferences.jumpCommand": "vsplit"
 }

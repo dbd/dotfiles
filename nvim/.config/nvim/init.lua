@@ -49,7 +49,7 @@ local packer_bootstrap = ensure_packer()
 
 --bindings
 require("plugins")
-vim.cmd("colorscheme one")
+require('onedark').load()
 require("bindings")
 require("lualine").setup()
 require("fzf")
@@ -59,3 +59,11 @@ require("ale_config")
 require("coc")
 require("agent")
 require("netrw")
+vim.api.nvim_create_autocmd("OptionSet", {
+  pattern = "diff",
+  callback = function()
+    if vim.v.option_new == "1" then
+      vim.opt_local.foldenable = false
+    end
+  end,
+})

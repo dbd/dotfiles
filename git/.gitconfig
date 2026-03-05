@@ -1,7 +1,7 @@
 [user]
 	name = Derek Daniels
-	email = derek@dbd.sh
-	signingkey = /home/dbd/.ssh/id_ed25519.pub
+	email = derek.daniels@avian-iot.com
+	signingkey = /Users/derekdaniels/.ssh/id_ed25519.pub
 [alias]
     s = status
     t = !git --no-pager tag
@@ -12,6 +12,7 @@
     branches = branch --all
     mpr = pull-request -p
     can = commit --amend --no-edit
+    last = !git --no-pager log -n1
 [hub]
 	protocol = https
 [commit]
@@ -21,9 +22,6 @@
     autoSetupRemote = true
 [pull]
 	rebase = true
-[credential "https://github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential

@@ -35,6 +35,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
 export FZF_DEFAULT_OPTS='--extended'
 export GOPRIVATE=github.com
+source ~/.env
 
 # For mac uncomment the below and comment the /usr/share
 
@@ -91,10 +92,13 @@ export GEM_HOME="$HOME/gems"
 
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
+<<<<<<< Updated upstream
 setopt nosharehistory
 setopt noincappendhistory
 
 export ASDF_DATA_DIR="/home/dbd/.asdf"
+=======
+>>>>>>> Stashed changes
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 alias gfp="git push origin \`git branch --show-current\` -f"
@@ -113,6 +117,19 @@ esac
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Keep history per-session for interactive recall (up arrow)
+setopt NO_SHARE_HISTORY
 
-# opencode
-export PATH=/home/dbd/.opencode/bin:$PATH
+# Make history durable
+setopt APPEND_HISTORY           # don't overwrite the file
+setopt INC_APPEND_HISTORY       # write each command to $HISTFILE as it's run
+setopt EXTENDED_HISTORY         # timestamps (useful for cleanup/merging)
+setopt HIST_IGNORE_SPACE        # commands starting with space not saved
+setopt HIST_REDUCE_BLANKS
+setopt HIST_IGNORE_DUPS
+setopt HIST_SAVE_NO_DUPS
+
+HISTFILE=~/.zsh_history
+HISTSIZE=200000
+SAVEHIST=200000
+export JSII_SILENCE_WARNING_UNTESTED_NODE_VERSION=1
