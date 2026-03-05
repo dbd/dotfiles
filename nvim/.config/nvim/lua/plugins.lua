@@ -24,7 +24,6 @@ return require('packer').startup(function(use)
   }
 
   use 'rakr/vim-one'
-  use 'tpope/vim-fugitive'
   use {
       'nvim-lualine/lualine.nvim',
       requires = { 'nvim-tree/nvim-web-devicons', opt=true }
@@ -38,32 +37,18 @@ return require('packer').startup(function(use)
     'junegunn/fzf',
     run = 'cd ~/.fzf && ./install --all',
   }
-  use({
-  "epwalsh/obsidian.nvim",
-  tag = "*",  -- recommended, use latest release instead of latest commit
-  requires = {
-    -- Required.
-    "nvim-lua/plenary.nvim",
-
-    -- see below for full list of optional dependencies 👇
-  },
-  config = function()
-    require("obsidian").setup({
-      workspaces = {
-        {
-          name = "personal",
-          path = "~/Documents/obsidian/Personal",
-        },
-      },
-    })
-  end,
-})
   use 'junegunn/fzf.vim'
   use 'nvie/vim-flake8'
-  use {
-    'fatih/vim-go',
-    --config = 'vim.cmd[[GoUpdateBinaries]]'
+  use 'fatih/vim-go'
+  use({
+  "nvim-neo-tree/neo-tree.nvim",
+  branch = "v3.x",
+  requires = {
+    "nvim-lua/plenary.nvim",
+    "MunifTanjim/nui.nvim",
+    "nvim-tree/nvim-web-devicons", -- optional, but recommended
   }
+})
   use {'nvim-treesitter/nvim-treesitter',
     cmd = 'TSUpdate',
     config = function()

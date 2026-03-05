@@ -1,6 +1,6 @@
 {
     "languageserver": {
-        "golang": {
+        "go": {
             "command": "gopls",
             "rootPatterns": [
                 "go.mod"
@@ -29,5 +29,6 @@
     "pyright.inlayHints.variableTypes": false,
     "pyright.inlayHints.parameterTypes": false,
     "pyright.inlayHints.functionReturnTypes": false,
-    "coc.preferences.jumpCommand": "tabe"
+    "prettier.disableLanguages": ["go"],
+  "prettier.filetypes": ["javascript","javascriptreact","typescript","typescriptreact","json","yaml","markdown","css","scss","html","svelte"]
 }

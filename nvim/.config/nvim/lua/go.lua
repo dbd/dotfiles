@@ -8,8 +8,6 @@ vim.g.go_highlight_structs = 1
 vim.g.go_highlight_types = 1
 vim.g.go_def_mapping_enabled = 1
 -- vim.g.syntastic_go_gometalinter_args = ['--structtag=false']
-GOPATH = os.getenv("GOPATH")
-vim.g.go_bin_path = vim.fn.expand(GOPATH.."/bin/")
 -- let g:go_doc_popup_window = 1 " Doesn't work in nvim
 vim.g.go_debug_breakpoint_sign_text = '•'
 vim.g.go_def_mapping_enabled = 0
@@ -29,3 +27,6 @@ vim.g.go_debug_mappings = {
      ["(go-debug-next)"]     = {key = "n", arguments = "<nowait>"},
      ["(go-debug-step)"]     = {key = "s"},
 }
+
+vim.g.go_def_mode = "gopls"
+vim.g.go_info_mode = "gopls"

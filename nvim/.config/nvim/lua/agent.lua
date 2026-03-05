@@ -1,25 +1,48 @@
--- Crush AI integration for Neovim
+-- Agent AI integration for Neovim
 local M = {}
 
--- Open Crush in a terminal split
-function M.open_crush()
-    vim.cmd("botright vsplit | terminal crush")
+local agent_buf = nil
+
+-- Toggle Agent terminal split
+function M.toggle_agent()
+    if agent_buf and vim.api.nvim_buf_is_valid(agent_buf) then
+        for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+            if vim.api.nvim_win_get_buf(win) == agent_buf then
+                vim.api.nvim_win_close(win, false)
+                return
+            end
+        end
+        -- Buffer exists but not visible, show it
+        vim.cmd("rightbelow vsplit")
+        vim.api.nvim_win_set_buf(0, agent_buf)
+        vim.cmd("startinsert")
+    else
+        vim.cmd("rightbelow vsplit | enew")
+        vim.fn.termopen("claude")
+        agent_buf = vim.api.nvim_get_current_buf()
+        vim.cmd("startinsert")
+    end
+end
+
+-- Open Agent in a terminal split
+function M.open_agent()
+    vim.cmd("botright vsplit | terminal claude")
     vim.cmd("startinsert")
 end
 
--- Open Crush with current file as context
-function M.open_crush_with_file()
+-- Open Agent with current file as context
+function M.open_agent_with_file()
     local file = vim.fn.expand("%:p")
     if file ~= "" then
-        vim.cmd("botright vsplit | terminal crush --file " .. vim.fn.shellescape(file))
+        vim.cmd("botright vsplit | terminal claude --file " .. vim.fn.shellescape(file))
     else
-        vim.cmd("botright vsplit | terminal crush")
+        vim.cmd("botright vsplit | terminal agent")
     end
     vim.cmd("startinsert")
 end
 
--- Send visual selection to Crush
-function M.send_selection_to_crush()
+-- Send visual selection to Agent
+function M.send_selection_to_agent()
     local start_pos = vim.fn.getpos("'<")
     local end_pos = vim.fn.getpos("'>")
     local lines = vim.fn.getline(start_pos[2], end_pos[2])
@@ -37,12 +60,12 @@ function M.send_selection_to_crush()
     local text = table.concat(lines, "\n")
     local escaped = vim.fn.shellescape(text)
     
-    vim.cmd("botright vsplit | terminal crush --prompt " .. escaped)
+    vim.cmd("botright vsplit | terminal claude --prompt " .. escaped)
     vim.cmd("startinsert")
 end
 
--- Open Crush in a floating window
-function M.open_crush_float()
+-- Open Agent in a floating window
+function M.open_agent_float()
     local width = math.floor(vim.o.columns * 0.8)
     local height = math.floor(vim.o.lines * 0.8)
     local col = math.floor((vim.o.columns - width) / 2)
@@ -59,14 +82,14 @@ function M.open_crush_float()
         border = "rounded",
     })
 
-    vim.fn.termopen("crush")
+    vim.fn.termopen("claude")
     vim.cmd("startinsert")
 end
 
--- Ask Crush about current file
+-- Ask Agent about current file
 function M.ask_about_file(prompt)
     local file = vim.fn.expand("%:p")
-    local cmd = "crush"
+    local cmd = "claude"
     if file ~= "" then
         cmd = cmd .. " --file " .. vim.fn.shellescape(file)
     end
@@ -78,19 +101,19 @@ function M.ask_about_file(prompt)
 end
 
 -- Create user commands
-vim.api.nvim_create_user_command("Crush", function()
-    M.open_crush()
+vim.api.nvim_create_user_command("Agent", function()
+    M.open_agent()
 end, {})
 
-vim.api.nvim_create_user_command("CrushFile", function()
-    M.open_crush_with_file()
+vim.api.nvim_create_user_command("AgentFile", function()
+    M.open_agent_with_file()
 end, {})
 
-vim.api.nvim_create_user_command("CrushFloat", function()
-    M.open_crush_float()
+vim.api.nvim_create_user_command("AgentFloat", function()
+    M.open_agent_float()
 end, {})
 
-vim.api.nvim_create_user_command("CrushAsk", function(opts)
+vim.api.nvim_create_user_command("AgentAsk", function(opts)
     M.ask_about_file(opts.args)
 end, { nargs = "?" })
 
