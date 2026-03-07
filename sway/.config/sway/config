@@ -220,3 +220,6 @@ font "FiraMono Nerd Font Mono" Regular 11
 bindsym $mod+g exec swaymsg \[con_id=$(swaymsg -t get_tree | jq -r '.nodes | .[] | .nodes | . [] | select(.nodes != null) | .nodes | .[] | select(.name != null) | "\(.id?) \(.name?)"' | rofi -dmenu -i | awk '{print $1}')] focus
 
 include '$(/usr/libexec/sway/layered-include "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
+
+default_border none
+default_floating_border none

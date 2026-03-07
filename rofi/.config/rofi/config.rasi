@@ -1,4 +1,4 @@
-@theme "onedark"
+//@theme "onedark"
 configuration {
   timeout {
       action: "kb-cancel";
@@ -9,3 +9,5 @@ configuration {
       sorting-method:    "name";
   }
 }
+
+@theme "/usr/share/rofi/themes/Arc-Dark.rasi"
