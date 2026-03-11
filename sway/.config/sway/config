@@ -50,10 +50,22 @@ output * bg /home/dbd/Pictures/wallpaper.jpg fill
     # Start your launcher
     bindsym $mod+d exec $menu
 
-    bindsym --whole-window {
-        $mod+Alt+button5 exec swaymsg opacity minus .05
-        $mod+Alt+button4 exec swaymsg opacity plus .05
-    }
+    bindcode $mod+112 opacity plus 0.05
+    bindcode $mod+117 opacity minus 0.05
+    #[14:     wl_keyboard] key: serial: 13279; time: 11728322; key: 117; state: 0 (released)
+    #                      sym: Next         (65366), utf8: ''
+    #[14:     wl_keyboard] key: serial: 13280; time: 11728832; key: 112; state: 1 (pressed)
+    #                      sym: Prior        (65365), utf8: ''
+    #[14:     wl_keyboard] key: serial: 13281; time: 11728832; key: 112; state: 0 (released)
+    #                      sym: Prior        (65365), utf8: ''
+    #[14:     wl_keyboard] key: serial: 13282; time: 11729387; key: 117; state: 1 (pressed)
+    #                      sym: Next         (65366), utf8: ''
+    #[14:     wl_keyboard] key: serial: 13283; time: 11729402; key: 117; state: 0 (released)
+    #                      sym: Next         (65366), utf8: ''
+    #[14:     wl_keyboard] key: serial: 13284; time: 11729883; key: 112; state: 1 (pressed)
+    #                      sym: Prior        (65365), utf8: ''
+    #[14:     wl_keyboard] key: serial: 13285; time: 11729897; key: 112; state: 0 (released)
+    #                      sym: Prior        (65365), utf8: ''
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -204,14 +216,21 @@ set $base0D #abb2bf
 set $base0E #689d6a
 set $base0F #a89984
 
-## Window Colours
-## client.<class>        <border> <background> <text> [<indicator> [<child_border>]]
-client.focused           $base0D  $base00      $base04  $base0D  $base0D
-client.focused_inactive  $base02  $base00      $base06  $base06  $base02
-client.unfocused         $base01  $base00      $base06  $base06  $base02
-client.urgent            $base07  $base00      $base06  $base06  $base02
-client.placeholder       $base02  $base00      $base06  $base06  $base04
-client.background        $base00
+## Window Colours (Nord, matching waybar)
+set $nord_active   #546484
+set $nord_inactive #2E3440
+set $nord_urgent   #BF616A
+set $nord_bg       #2E3440
+set $nord_text     #D8DEE9
+set $nord_dim      #4C566A
+
+## client.<class>        <border>        <background> <text>      [<indicator>    [<child_border>]]
+client.focused           $nord_active    $nord_bg     $nord_text   $nord_active    $nord_active
+client.focused_inactive  $nord_inactive  $nord_bg     $nord_dim    $nord_inactive  $nord_inactive
+client.unfocused         $nord_inactive  $nord_bg     $nord_dim    $nord_inactive  $nord_inactive
+client.urgent            $nord_urgent    $nord_bg     $nord_text   $nord_urgent    $nord_urgent
+client.placeholder       $nord_inactive  $nord_bg     $nord_dim    $nord_inactive  $nord_inactive
+client.background        $nord_bg
 
 font "FiraMono Nerd Font Mono" Regular 11
 # 
@@ -221,5 +240,7 @@ bindsym $mod+g exec swaymsg \[con_id=$(swaymsg -t get_tree | jq -r '.nodes | .[]
 
 include '$(/usr/libexec/sway/layered-include "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
 
-default_border none
-default_floating_border none
+default_border pixel 2
+default_floating_border pixel 2
+
+exec swaymsg "[app_id=~\".*\"] opacity 1.0; [class=~\".*\"] opacity 1.0"
