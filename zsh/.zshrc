@@ -25,7 +25,7 @@ export SPACESHIP_PROMPT_ADD_NEWLINE=false
 ZSH_THEME="eastwood"
 
 # Plugin and plugin config
-plugins=(ssh-agent sudo docker asdf fzf)
+plugins=(ssh-agent sudo docker fzf)
 # install asdf with `git clone https://github.com/asdf-vm/asdf.git ~/.asdf`
 cdpath=(. $HOME)
 
@@ -35,6 +35,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
 export FZF_DEFAULT_OPTS='--extended'
 export GOPRIVATE=github.com
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # For mac uncomment the below and comment the /usr/share
 
@@ -93,9 +94,6 @@ export GEM_HOME="$HOME/gems"
 
 setopt nosharehistory
 setopt noincappendhistory
-
-export ASDF_DATA_DIR="/home/dbd/.asdf"
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 alias gfp="git push origin \`git branch --show-current\` -f"
 
