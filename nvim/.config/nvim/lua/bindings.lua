@@ -66,4 +66,4 @@ vim.api.nvim_set_keymap("n", "<leader>cf", ":AgentFile<CR>", {silent = true, des
 vim.api.nvim_set_keymap("n", "<leader>cF", ":AgentFloat<CR>", {silent = true, desc = "Agent in floating window"})
 vim.api.nvim_set_keymap("v", "<leader>cs", ":<C-U>lua require('agent').send_selection_to_agent()<CR>", {silent = true, desc = "Send selection to Agent"})
 
-vim.api.nvim_set_keymap("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Explorer" })
+vim.api.nvim_set_keymap("n", "<leader>e", "<cmd>Neotree toggle<CR>", { desc = "Explorer" })
