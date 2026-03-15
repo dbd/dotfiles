@@ -1,15 +1,4 @@
 {
-    "languageserver": {
-        "go": {
-            "command": "gopls",
-            "rootPatterns": [
-                "go.mod"
-            ],
-            "filetypes": [
-                "go"
-            ]
-        }
-    },
     "formatters": {
         "ruff": {
             "command": "uv",

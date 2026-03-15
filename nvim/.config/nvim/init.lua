@@ -49,7 +49,16 @@ local packer_bootstrap = ensure_packer()
 
 --bindings
 require("plugins")
-vim.cmd("colorscheme one")
+require("onedark").setup({
+    style = "dark",
+    highlights = {
+        DiffAdd    = { bg = "#2d4a2d" },
+        DiffDelete = { bg = "#4a2d2d" },
+        DiffChange = { bg = "#2d3a4a" },
+        DiffText   = { bg = "#3a5a6a", fg = "#ffffff" },
+    }
+})
+require("onedark").load()
 require("bindings")
 require("lualine").setup()
 require("fzf")
