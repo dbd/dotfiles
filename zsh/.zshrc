@@ -26,7 +26,6 @@ ZSH_THEME="eastwood_remote"
 
 # Plugin and plugin config
 plugins=(ssh-agent sudo docker fzf)
-# install asdf with `git clone https://github.com/asdf-vm/asdf.git ~/.asdf`
 cdpath=(. $HOME)
 
 # OMZ init
@@ -35,7 +34,6 @@ export XDG_CONFIG_HOME=$HOME/.config
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
 export FZF_DEFAULT_OPTS='--extended'
 export GOPRIVATE=github.com
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # For mac uncomment the below and comment the /usr/share
 
@@ -102,15 +100,6 @@ function gdiff {
     nvim "+Git difftool -y master...$branch"
 }
 
-# pnpm
-export PNPM_HOME="/home/dbd/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# opencode
-export PATH=/home/dbd/.opencode/bin:$PATH

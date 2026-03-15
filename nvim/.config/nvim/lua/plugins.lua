@@ -39,7 +39,6 @@ return require('packer').startup(function(use)
   }
   use 'junegunn/fzf.vim'
   use 'nvie/vim-flake8'
-  use 'fatih/vim-go'
   use({
   "nvim-neo-tree/neo-tree.nvim",
   branch = "v3.x",
@@ -53,7 +52,7 @@ return require('packer').startup(function(use)
     cmd = 'TSUpdate',
     config = function()
       require("nvim-treesitter.configs").setup({
-            ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "svelte", "javascript", "typescript", "css", 'html'},
+            ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "svelte", "javascript", "typescript", "css", "html", "go" },
             auto_install = true,
             highlight = {
             enable = true,
