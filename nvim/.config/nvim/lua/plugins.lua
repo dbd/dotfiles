@@ -23,7 +23,7 @@ return require('packer').startup(function(use)
     config = 'vim.cmd[[ALEEnable]]'
   }
 
-  use 'rakr/vim-one'
+  use 'navarasu/onedark.nvim'
   use {
       'nvim-lualine/lualine.nvim',
       requires = { 'nvim-tree/nvim-web-devicons', opt=true }
@@ -49,10 +49,10 @@ return require('packer').startup(function(use)
   }
 })
   use {'nvim-treesitter/nvim-treesitter',
-    cmd = 'TSUpdate',
+    run = ':TSUpdate',
     config = function()
       require("nvim-treesitter.configs").setup({
-            ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "svelte", "javascript", "typescript", "css", "html", "go" },
+            ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "svelte", "javascript", "typescript", "css", "html", "go", "diff", "gitcommit" },
             auto_install = true,
             highlight = {
             enable = true,
