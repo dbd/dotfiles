@@ -54,7 +54,6 @@ alias please="sudo !!"
 alias c3="source $HOME/miniconda3/bin/activate"
 alias kc="kubectl"
 alias clear_dns="sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache"
-alias python="/Users/derekdaniels/.local/bin/python3.13"
 
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin:$HOME/bin"
