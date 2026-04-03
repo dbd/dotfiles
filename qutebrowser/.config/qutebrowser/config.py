@@ -1,3 +1,73 @@
+## Aliases for commands. The keys of the given dictionary are the
+## aliases, while the values are the commands they map to.
+## Type: Dict
+# c.aliases = {'w': 'session-save', 'q': 'close', 'qa': 'quit', 'wq': 'quit --save', 'wqa': 'quit --save'}
+c.aliases = {'1p': 'spawn --userscript 1pass', 'q': 'close', 'qa': 'quit', 'wq': 'quit --save', 'wqa': 'quit --save'}
+
+## Allow JavaScript to read from or write to the clipboard. With
+## QtWebEngine, writing the clipboard as response to a user interaction
+## is always allowed. On Qt < 6.8, the `ask` setting is equivalent to
+## `none` and permission needs to be granted manually via this setting.
+## Type: JSClipboardPermission
+## Valid values:
+##   - none: Disable access to clipboard.
+##   - access: Allow reading from and writing to the clipboard.
+##   - access-paste: Allow accessing the clipboard and pasting clipboard content.
+##   - ask: Prompt when requested (grants 'access-paste' permission).
+# c.content.javascript.clipboard = 'ask'
+
+## Enable JavaScript.
+## Type: Bool
+# c.content.javascript.enabled = True
+
+## Position of the status bar.
+## Type: VerticalPosition
+## Valid values:
+##   - top
+##   - bottom
+# c.statusbar.position = 'bottom'
+
+## When to show the statusbar.
+## Type: String
+## Valid values:
+##   - always: Always show the statusbar.
+##   - never: Always hide the statusbar.
+##   - in-mode: Show the statusbar when in modes other than normal mode.
+# c.statusbar.show = 'always'
+
+## List of widgets displayed in the statusbar.
+## Type: List of StatusbarWidget
+## Valid values:
+##   - url: Current page URL.
+##   - scroll: Percentage of the current page position like `10%`.
+##   - scroll_raw: Raw percentage of the current page position like `10`.
+##   - history: Display an arrow when possible to go back/forward in history.
+##   - search_match: A match count when searching, e.g. `Match [2/10]`.
+##   - tabs: Current active tab, e.g. `2`.
+##   - keypress: Display pressed keys when composing a vi command.
+##   - progress: Progress bar for the current page loading.
+##   - text:foo: Display the static text after the colon, `foo` in the example.
+##   - clock: Display current time. The format can be changed by adding a format string via `clock:...`. For supported format strings, see https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes[the Python datetime documentation].
+# c.statusbar.widgets = ['keypress', 'search_match', 'url', 'scroll', 'history', 'tabs', 'progress']
+
+## How to behave when the last tab is closed. If the
+## `tabs.tabs_are_windows` setting is set, this is ignored and the
+## behavior is always identical to the `close` value.
+## Type: String
+## Valid values:
+##   - ignore: Don't do anything.
+##   - blank: Load a blank page.
+##   - startpage: Load the start page.
+##   - default-page: Load the default page.
+##   - close: Close the window.
+c.tabs.last_close = 'close'
+
+## Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
+## for a blank page.
+## Type: FuzzyUrl
+c.url.default_page = 'about:blank'
+
+c.url.start_pages = ['about:blank']
 config.load_autoconfig(False)
 
 config.set('content.pdfjs', True)
