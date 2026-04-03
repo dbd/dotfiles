@@ -49,9 +49,10 @@ return require('packer').startup(function(use)
   }
 })
   use {'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
+  lazy=false,
+    build = ':TSUpdate',
     config = function()
-      require("nvim-treesitter.configs").setup({
+      require("nvim-treesitter.config").setup({
             ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "svelte", "javascript", "typescript", "css", "html", "go", "diff", "gitcommit" },
             auto_install = true,
             highlight = {
