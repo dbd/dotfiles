@@ -82,7 +82,21 @@ fi
 
 
 if [ -n "$TOKEN" ]; then
-    UUID=$(op list items --cache --session="$TOKEN" | jq --arg url "$URL" -r '[.[] | {uuid, url: [.overview.URLs[]?.u, .overview.url][]?} | select(.uuid != null) | select(.url != null) | select(.url|test(".*\($url).*"))][.0].uuid') || UUID="" 
+    MATCHES=$(op list items --cache --session="$TOKEN" | jq --arg url "$URL" -r '[.[] | {uuid, title: .overview.title, url: [.overview.URLs[]?.u, .overview.url][]?} | select(.uuid != null) | select(.url != null) | select(.url|test(".*\($url).*"))] | unique_by(.uuid)') || MATCHES="[]"
+    MATCH_COUNT=$(echo "$MATCHES" | jq 'length')
+
+    if [ "$MATCH_COUNT" -eq 1 ]; then
+        UUID=$(echo "$MATCHES" | jq -r '.[0].uuid')
+    elif [ "$MATCH_COUNT" -gt 1 ]; then
+        TITLE=$(echo "$MATCHES" | jq -r '.[].title' | rofi -dmenu -i -p "1password ($MATCH_COUNT matches): ") || TITLE=""
+        if [ -n "$TITLE" ]; then
+            UUID=$(echo "$MATCHES" | jq --arg title "$TITLE" -r '[.[] | select(.title == $title)][0].uuid')
+        else
+            UUID=""
+        fi
+    else
+        UUID=""
+    fi
 
     if [ -z "$UUID" ] || [ "$UUID" == "null" ];then
         echo "message-error 'No entry found for $URL'" >> "$QUTE_FIFO"

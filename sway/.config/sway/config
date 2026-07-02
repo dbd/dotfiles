@@ -36,6 +36,8 @@ set $menu fuzzel
 # resumed. It will also lock your screen before your computer goes to sleep.
 output * bg /home/dbd/Pictures/wallpaper.jpg fill
 
+include ~/.config/sway/outputs
+
 
 ### Key bindings
 #

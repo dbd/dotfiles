@@ -34,7 +34,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
 export FZF_DEFAULT_OPTS='--extended'
 export GOPRIVATE=github.com
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+export BAO_ADDR="https://bao.dbd.sh"
 
 # For mac uncomment the below and comment the /usr/share
 

@@ -93,10 +93,24 @@ if [ -z "$ITEMS" ]; then
     exit 1
 fi
 
-UUID=$(echo "$ITEMS" \
+MATCHES=$(echo "$ITEMS" \
     | jq --arg url "$URL" -r \
-        '[.[] | select(.urls != null) | {id, url: .urls[].href}
-          | select(.url | test(".*\($url).*"))][0].id') || UUID=""
+        '[.[] | select(.urls != null) | {id, title, url: .urls[].href}
+          | select(.url | test(".*\($url).*"))] | unique_by(.id)') || MATCHES="[]"
+MATCH_COUNT=$(echo "$MATCHES" | jq 'length')
+
+if [ "$MATCH_COUNT" -eq 1 ]; then
+    UUID=$(echo "$MATCHES" | jq -r '.[0].id')
+elif [ "$MATCH_COUNT" -gt 1 ]; then
+    TITLE=$(echo "$MATCHES" | jq -r '.[].title' | rofi -dmenu -i -p "1password ($MATCH_COUNT matches): ") || TITLE=""
+    if [ -n "$TITLE" ]; then
+        UUID=$(echo "$MATCHES" | jq --arg title "$TITLE" -r '[.[] | select(.title == $title)][0].id')
+    else
+        UUID=""
+    fi
+else
+    UUID=""
+fi
 
 if [ -z "$UUID" ] || [ "$UUID" == "null" ]; then
     echo "message-error 'No entry found for $URL'" >> "$QUTE_FIFO"

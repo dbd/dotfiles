@@ -7,7 +7,7 @@
     // Choose the order of the modules
     "modules-left": [ "clock", "custom/weather", "sway/mode", "idle_inhibitor", "custom/media"],
     "modules-center": ["sway/workspaces"],
-    "modules-right": [ "custom/cpugovernor", "cpu", "temperature", "custom/gpu", "pulseaudio", "bluetooth", "network", "tray"],
+    "modules-right": [ "custom/cpugovernor", "cpu", "temperature",  "pulseaudio", "bluetooth", "network", "tray"],
     // Modules configuration
     "sway/workspaces": {
         "expand": "true",
@@ -120,17 +120,17 @@
         "interval": 1800,
         "tooltip": false
     },
-    "custom/gpu": {
-      "exec": "$HOME/.config/waybar/custom_modules/custom-gpu.sh",
-      "return-type": "json",
-      "format": "  {}",
-      "interval": 2,
-      "tooltip": "{tooltip}",
-      "max-length": 19,
-      "min-length": 19,
-      "on-click": "powerupp"
-      
-    }, 
+    // "custom/gpu": {
+    //   "exec": "$HOME/.config/waybar/custom_modules/custom-gpu.sh",
+    //   "return-type": "json",
+    //   "format": "  {}",
+    //   "interval": 2,
+    //   "tooltip": "{tooltip}",
+    //   "max-length": 19,
+    //   "min-length": 19,
+    //   "on-click": "powerupp"
+    //   
+    // }, 
     "custom/cpugovernor": {
       "format": "{icon}",
       "interval": "30",
