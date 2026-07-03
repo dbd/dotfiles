@@ -42,6 +42,13 @@ vim.api.nvim_set_keymap("n", "gl", ":Git log -n10<cr>", {})
 -- Python
 
 -- coc
+vim.keymap.set('n', 'K', function()
+    if vim.fn['coc#rpc#ready']() then
+        vim.fn.CocActionAsync('doHover')
+    else
+        vim.api.nvim_feedkeys('K', 'n', false)
+    end
+end, { silent = true, desc = 'Show hover docs' })
 vim.api.nvim_set_keymap("n", "gd", "<Plug>(coc-definition)", {silent = true})
 vim.api.nvim_set_keymap("n", "gy", "<Plug>(coc-type-definition)", {silent = true})
 vim.api.nvim_set_keymap("n", "gi", "<Plug>(coc-implementation)", {silent = true})
@@ -67,3 +74,8 @@ vim.api.nvim_set_keymap("n", "<leader>cF", ":AgentFloat<CR>", {silent = true, de
 vim.api.nvim_set_keymap("v", "<leader>cs", ":<C-U>lua require('agent').send_selection_to_agent()<CR>", {silent = true, desc = "Send selection to Agent"})
 
 vim.api.nvim_set_keymap("n", "<leader>e", "<cmd>Neotree toggle<CR>", { desc = "Explorer" })
+
+-- Window jumps
+for i = 1, 9 do
+    vim.keymap.set('n', '<leader>w' .. i, '<cmd>' .. i .. 'wincmd w<cr>', { silent = true, desc = 'Jump to window ' .. i })
+end
