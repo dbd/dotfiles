@@ -1,5 +1,8 @@
 
 git -C ~/.config/dotfiles status | grep "committed" >/dev/null && echo 'Commited the changed dotfiles!'
+
+# Detect ssh session early so it can be used to configure the environment
+[[ -n "$SSH_CONNECTION" || -n "$SSH_CLIENT" || -n "$SSH_TTY" ]] && IS_SSH=true || IS_SSH=false
 #Set identies to use for ssh-agent plugin
 # Needed on mac because it doesn't autoload the ssh key
 zstyle :omz:plugins:ssh-agent identities id_ed25519
@@ -22,7 +25,11 @@ SPACESHIP_PROMPT_ORDER=(
 export SPACESHIP_PROMPT_SEPARATE_LINE=false
 export SPACESHIP_PROMPT_ADD_NEWLINE=false
 
-ZSH_THEME="eastwood"
+if [[ "$IS_SSH" == true ]]; then
+  ZSH_THEME="eastwood_remote"
+else
+  ZSH_THEME="eastwood"
+fi
 
 # Plugin and plugin config
 plugins=(ssh-agent sudo docker fzf)
