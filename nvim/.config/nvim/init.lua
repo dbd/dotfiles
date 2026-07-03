@@ -60,7 +60,24 @@ require("onedark").setup({
 })
 require("onedark").load()
 require("bindings")
-require("lualine").setup()
+require("lualine").setup({
+    sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location', { function() return 'W' .. vim.fn.winnr() end } },
+    },
+    inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = { 'filename' },
+        lualine_x = { 'location' },
+        lualine_y = {},
+        lualine_z = { { function() return 'W' .. vim.fn.winnr() end } },
+    },
+})
 require("fzf")
 require("python")
 require("ale_config")
