@@ -7,8 +7,8 @@ vim.opt_local.expandtab = false
 vim.api.nvim_create_autocmd("BufWritePre", {
     buffer = 0,
     callback = function()
-        pcall(vim.fn.CocAction, "runCommand", "editor.action.organizeImport")
-        vim.fn.CocAction("format")
+        vim.cmd("silent! call CocAction('runCommand', 'editor.action.organizeImport')")
+        vim.cmd("silent! call CocAction('format')")
     end,
 })
 
