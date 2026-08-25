@@ -11,7 +11,7 @@ end
 
 local packer_bootstrap = ensure_packer()
 
-return require('packer').startup(function(use)
+require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
@@ -62,3 +62,16 @@ return require('packer').startup(function(use)
     end,
   }
 end)
+
+if packer_bootstrap then
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "PackerComplete",
+    once = true,
+    callback = function()
+      vim.notify("packer.nvim: plugin install complete, restart Neovim", vim.log.levels.WARN)
+    end,
+  })
+  require('packer').sync()
+end
+
+return packer_bootstrap

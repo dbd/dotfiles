@@ -33,51 +33,49 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.conceallevel = 2
 
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
-end
-
-local packer_bootstrap = ensure_packer()
-
-
 --bindings
+-- on a fresh machine, packer.nvim itself is bootstrapped here but the
+-- plugins it manages are only installed asynchronously (see plugins.lua).
+-- guard requires of plugin-provided modules with pcall so a first run
+-- doesn't hard-error; a restart after the install finishes picks them up.
 require("plugins")
-require("onedark").setup({
-    style = "dark",
-    highlights = {
-        DiffAdd    = { bg = "#2d4a2d" },
-        DiffDelete = { bg = "#4a2d2d" },
-        DiffChange = { bg = "#2d3a4a" },
-        DiffText   = { bg = "#3a5a6a", fg = "#ffffff" },
-    }
-})
-require("onedark").load()
+
+local ok_onedark, onedark = pcall(require, "onedark")
+if ok_onedark then
+    onedark.setup({
+        style = "dark",
+        highlights = {
+            DiffAdd    = { bg = "#2d4a2d" },
+            DiffDelete = { bg = "#4a2d2d" },
+            DiffChange = { bg = "#2d3a4a" },
+            DiffText   = { bg = "#3a5a6a", fg = "#ffffff" },
+        }
+    })
+    onedark.load()
+end
 require("bindings")
-require("lualine").setup({
-    sections = {
-        lualine_a = { 'mode' },
-        lualine_b = { 'branch', 'diff', 'diagnostics' },
-        lualine_c = { 'filename' },
-        lualine_x = { 'encoding', 'fileformat', 'filetype' },
-        lualine_y = { 'progress' },
-        lualine_z = { 'location', { function() return 'W' .. vim.fn.winnr() end } },
-    },
-    inactive_sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = { 'filename' },
-        lualine_x = { 'location' },
-        lualine_y = {},
-        lualine_z = { { function() return 'W' .. vim.fn.winnr() end } },
-    },
-})
+
+local ok_lualine, lualine = pcall(require, "lualine")
+if ok_lualine then
+    lualine.setup({
+        sections = {
+            lualine_a = { 'mode' },
+            lualine_b = { 'branch', 'diff', 'diagnostics' },
+            lualine_c = { 'filename' },
+            lualine_x = { 'encoding', 'fileformat', 'filetype' },
+            lualine_y = { 'progress' },
+            lualine_z = { 'location', { function() return 'W' .. vim.fn.winnr() end } },
+        },
+        inactive_sections = {
+            lualine_a = {},
+            lualine_b = {},
+            lualine_c = { 'filename' },
+            lualine_x = { 'location' },
+            lualine_y = {},
+            lualine_z = { { function() return 'W' .. vim.fn.winnr() end } },
+        },
+    })
+end
 require("fzf")
 require("python")
 require("ale_config")

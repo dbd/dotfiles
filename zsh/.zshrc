@@ -1,4 +1,4 @@
-# Check to make sure that dotfiles are updated
+
 git -C ~/.config/dotfiles status | grep "committed" >/dev/null && echo 'Commited the changed dotfiles!'
 #Set identies to use for ssh-agent plugin
 # Needed on mac because it doesn't autoload the ssh key
@@ -22,7 +22,7 @@ SPACESHIP_PROMPT_ORDER=(
 export SPACESHIP_PROMPT_SEPARATE_LINE=false
 export SPACESHIP_PROMPT_ADD_NEWLINE=false
 
-ZSH_THEME="eastwood_remote"
+ZSH_THEME="eastwood"
 
 # Plugin and plugin config
 plugins=(ssh-agent sudo docker fzf)
