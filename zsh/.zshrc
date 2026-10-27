@@ -64,7 +64,6 @@ alias c3="source $HOME/miniconda3/bin/activate"
 alias kc="kubectl"
 alias clear_dns="sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache"
 
-export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin:$HOME/bin"
 
 export CHARM_HOST=charm.dbd.sh
@@ -73,16 +72,6 @@ export CHARM_SERVER_HTTP_SCHEME=https
 #Functions
 function mkcd {
     mkdir $1 && cd $1
-}
-
-# Only init gcloud things when I need them, saves load time
-function gcloud_init {
-    # The next line updates PATH for the Google Cloud SDK.
-    if [ -f "$HOME/Downloads/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/path.zsh.inc"; fi
-
-    # The next line enables shell command completion for gcloud.
-    if [ -f "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc"; fi
-
 }
 
 # Only init nvm things when I need them, saves load time
@@ -127,3 +116,16 @@ HISTFILE=~/.zsh_history
 HISTSIZE=200000
 SAVEHIST=200000
 export JSII_SILENCE_WARNING_UNTESTED_NODE_VERSION=1
+
+function sping {
+    ip=$(grep -A3 $1 ~/.ssh/config | grep Hostname | cut -f2 -d ' ')
+    ping $ip
+}
+
+# bun completions
+[ -s "/Users/derekdaniels/.bun/_bun" ] && source "/Users/derekdaniels/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+alias pishrink='docker run -it --rm --platform linux/arm64 --privileged=true -v $(pwd):/workdir pishrink'

@@ -18,7 +18,7 @@ function M.toggle_agent()
         vim.cmd("startinsert")
     else
         vim.cmd("rightbelow vsplit | enew")
-        vim.fn.termopen("claude")
+        vim.fn.termopen("agent")
         agent_buf = vim.api.nvim_get_current_buf()
         vim.cmd("startinsert")
     end
@@ -26,7 +26,7 @@ end
 
 -- Open Agent in a terminal split
 function M.open_agent()
-    vim.cmd("botright vsplit | terminal claude")
+    vim.cmd("botright vsplit | terminal agent")
     vim.cmd("startinsert")
 end
 
@@ -34,7 +34,7 @@ end
 function M.open_agent_with_file()
     local file = vim.fn.expand("%:p")
     if file ~= "" then
-        vim.cmd("botright vsplit | terminal claude --file " .. vim.fn.shellescape(file))
+        vim.cmd("botright vsplit | terminal agent --file " .. vim.fn.shellescape(file))
     else
         vim.cmd("botright vsplit | terminal agent")
     end
@@ -60,7 +60,7 @@ function M.send_selection_to_agent()
     local text = table.concat(lines, "\n")
     local escaped = vim.fn.shellescape(text)
     
-    vim.cmd("botright vsplit | terminal claude --prompt " .. escaped)
+    vim.cmd("botright vsplit | terminal agent --prompt " .. escaped)
     vim.cmd("startinsert")
 end
 
@@ -82,14 +82,14 @@ function M.open_agent_float()
         border = "rounded",
     })
 
-    vim.fn.termopen("claude")
+    vim.fn.termopen("agent")
     vim.cmd("startinsert")
 end
 
 -- Ask Agent about current file
 function M.ask_about_file(prompt)
     local file = vim.fn.expand("%:p")
-    local cmd = "claude"
+    local cmd = "agent"
     if file ~= "" then
         cmd = cmd .. " --file " .. vim.fn.shellescape(file)
     end
