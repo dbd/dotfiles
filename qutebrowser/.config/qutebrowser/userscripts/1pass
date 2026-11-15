@@ -2,6 +2,26 @@
 
 set +e
 
+select_item() {
+    local items="$1" prompt="$2" entry id title username index
+    local -a labels=()
+
+    while IFS= read -r entry; do
+        id=$(jq -r '.id' <<< "$entry")
+        title=$(jq -r '.title' <<< "$entry")
+        username=$(op item get "$id" --format=json --account my --session="$TOKEN" 2>/dev/null \
+            | jq -r '[.fields[]? | select(.id == "username") | .value // empty][0] // ""')
+        labels+=("$(jq -nr --arg title "$title" --arg username "$username" \
+            '($title + if $username == "" then "" else " (" + $username + ")" end)
+             | gsub("[\r\n\t]"; " ")')")
+    done < <(jq -c '.[]' <<< "$items")
+
+    [ "${#labels[@]}" -gt 0 ] || return 1
+    index=$(printf '%s\n' "${labels[@]}" | rofi -dmenu -i -only-match -format i -p "$prompt") || return 1
+    [[ "$index" =~ ^[0-9]+$ ]] || return 1
+    jq -r --argjson index "$index" '.[$index].id // empty' <<< "$items"
+}
+
 # JS field injection code from https://github.com/qutebrowser/qutebrowser/blob/main/misc/userscripts/password_fill
 javascript_escape() {
     # print the first argument in an escaped way, such that it can safely
@@ -102,26 +122,14 @@ MATCH_COUNT=$(echo "$MATCHES" | jq 'length')
 if [ "$MATCH_COUNT" -eq 1 ]; then
     UUID=$(echo "$MATCHES" | jq -r '.[0].id')
 elif [ "$MATCH_COUNT" -gt 1 ]; then
-    TITLE=$(echo "$MATCHES" | jq -r '.[].title' | rofi -dmenu -i -p "1password ($MATCH_COUNT matches): ") || TITLE=""
-    if [ -n "$TITLE" ]; then
-        UUID=$(echo "$MATCHES" | jq --arg title "$TITLE" -r '[.[] | select(.title == $title)][0].id')
-    else
-        UUID=""
-    fi
+    UUID=$(select_item "$MATCHES" "1password ($MATCH_COUNT matches): ") || UUID=""
 else
     UUID=""
 fi
 
 if [ -z "$UUID" ] || [ "$UUID" == "null" ]; then
     echo "message-error 'No entry found for $URL'" >> "$QUTE_FIFO"
-    TITLE=$(echo "$ITEMS" | jq -r '.[].title' | rofi -dmenu -i) || TITLE=""
-    if [ -n "$TITLE" ]; then
-        UUID=$(echo "$ITEMS" \
-            | jq --arg title "$TITLE" -r \
-                '[.[] | {id, title} | select(.title | test("\($title)"))][0].id') || UUID=""
-    else
-        UUID=""
-    fi
+    UUID=$(select_item "$ITEMS" "1password: ") || UUID=""
 fi
 
 if [ -n "$UUID" ]; then
